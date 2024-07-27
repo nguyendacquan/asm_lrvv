@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DanhMucController;
+use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Clients\checkout;
@@ -80,4 +81,12 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [SanPhamController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [SanPhamController::class, 'destroy'])->name('destroy');
             });
+
+        // Route để hiển thị danh sách đơn hàng
+        Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
+
+        // Route để hiển thị chi tiết đơn hàng
+        Route::get('/donhang/{id}', [DonHangController::class, 'show'])->name('chitietdonhang');
+        // Route để cập nhật trạng thái đơn hàng
+        Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
     });
