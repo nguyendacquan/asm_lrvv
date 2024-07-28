@@ -13,12 +13,12 @@
                         <img src="{{ asset('assets/admin/images/logo-light.png') }}" alt="" height="24">
                     </span>
                 </a>
-                <a class='logo logo-dark' href='index.html'>
+                <a class='logo logo-dark' href='{{route('admins.dashboard')}}'>
                     <span class="logo-sm">
                         <img src="{{ asset('assets/admin/images/logo-sm.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/admin/images/logo-dark.png') }}" alt="" height="24">
+                        <img src="{{ asset('assets/admin/images/Wardiere-removebg-preview.png') }}" alt="" width="80px">
                     </span>
                 </a>
             </div>

@@ -116,8 +116,5 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
     });
 
-
 Route::get('details{id}', [ClientController::class, 'details'])->name('details');
-Route::get('cart{id}', [ClientController::class, 'cart'])->name('cart');
-Route::get('myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
-Route::resource('clients', ClientController::class);
+Route::resource('client', ClientController::class);
