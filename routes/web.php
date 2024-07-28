@@ -2,12 +2,19 @@
 
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
 use App\Http\Controllers\Admin\DanhMucController;
+use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+<<<<<<< HEAD
 use App\Http\Controllers\BaiVietController;
+=======
+use App\Http\Controllers\Client\ClientController;
+>>>>>>> f27bf1b50f6056faf5963ea30afc3b62bb539705
 use App\Http\Controllers\Clients\checkout;
 use App\Http\Controllers\Clients\test;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +40,9 @@ Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::get('/home', function () {
-//     return view('home');
-// })->middleware('auth');
+Route::get('/home', function () {
+    return view('home');
+});
 
 // Route::get('/admin', function () {
 //     return "Đây là trang admin";
@@ -60,7 +67,6 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::get('/dashboard', function () {
             return view('admins.dashboard');
         })->name('dashboard');
-
         Route::prefix('danhmucs')
             ->as('danhmucs.')
             ->group(function () {
@@ -83,6 +89,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [SanPhamController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [SanPhamController::class, 'destroy'])->name('destroy');
             });
+<<<<<<< HEAD
         Route::prefix('baiviet')
             ->as('baiviet.')
             ->group(function () {
@@ -96,6 +103,30 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
             });
 
          
+=======
+        Route::prefix('lienhe')
+            ->as('lienhe.')
+            ->group(function () {
+                Route::get('/', [LienHeController::class, 'index'])->name('index');
+                Route::get('/create', [LienHeController::class, 'create'])->name('create');
+                Route::post('/store', [LienHeController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [LienHeController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [LienHeController::class, 'edit'])->name('edit');
+                Route::put('{id}/update', [LienHeController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [LienHeController::class, 'destroy'])->name('destroy');
+            });
+        Route::prefix('users')
+            ->as('users.')
+            ->group(function () {
+                Route::get('/', [UserController::class, 'index'])->name('index');
+                Route::get('/create', [UserController::class, 'create'])->name('create');
+                Route::post('/store', [UserController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [UserController::class, 'edit'])->name('edit');
+                Route::put('{id}/update', [UserController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
+            });
+>>>>>>> f27bf1b50f6056faf5963ea30afc3b62bb539705
 
         // Route để hiển thị danh sách đơn hàng
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
@@ -105,3 +136,6 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         // Route để cập nhật trạng thái đơn hàng
         Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
     });
+
+Route::get('details{id}', [ClientController::class, 'details'])->name('details');
+Route::resource('client', ClientController::class);

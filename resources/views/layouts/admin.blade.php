@@ -30,7 +30,8 @@
 
 <!-- body start -->
 
-<body data-menu-color="light" data-sidebar="default">
+
+<body data-menu-color="light" data-sidebar="default" >
 
     <!-- Begin page -->
     <div id="app-layout">
@@ -75,7 +76,7 @@
 
     <!-- for basic area chart -->
     <script src="{{ asset('assets/admin/apexcharts.com/samples/assets/stock-prices.js') }}"></script>
-	@yield('js')
+    @yield('js')
 
     <!-- Widgets Init Js -->
     <script src="{{ asset('assets/admin/js/pages/analytics-dashboard.init.js') }}"></script>
@@ -86,6 +87,6 @@
 
 </body>
 
-<!-- Mirrored from zoyothemes.com/tapeli/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 08:34:03 GMT -->
+
 
 </html>
