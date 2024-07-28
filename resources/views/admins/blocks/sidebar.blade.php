@@ -65,6 +65,12 @@
 
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='{{route('admins.baiviet.index')}}'>
+                        <i data-feather="list"></i>
+                        <span> Quản lí bài viết </span>
+                    </a>
+                </li>
 
             </ul>
 
