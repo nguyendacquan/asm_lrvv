@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Clients\checkout;
 use App\Http\Controllers\Clients\test;
@@ -117,4 +118,14 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
     });
 
 Route::get('details{id}', [ClientController::class, 'details'])->name('details');
+Route::get('/list-cart', [CartController::class, 'listCart'])->name('cart.list');
+Route::post('/add-to-cart', [CartController::class, 'addCart'])->name('cart.add');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
+Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+
+
 Route::resource('client', ClientController::class);
+
+
+

@@ -10,17 +10,34 @@ use App\Models\DanhMuc;
 class ClientController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $listSanPham = SanPham::query()->get();
-       
-        return view("clients.index", compact('listSanPham'));
+        $search = $request->input("search");
+        $listSanPham = SanPham::query()
+            ->when($search, function ($query, $search) {
+                return $query->where("ten_san_pham", "like", "%{$search}%");
+            })
+            ->get();
+
+
+        return view("clients.index", compact('listSanPham',));
     }
 
-    public function show($id)
+    public function show(String $id)
     {
-        $SanPham = SanPham::findOrFail($id);
-        return view('clients.sanpham.details', compact('SanPham'));
+        $sanPham = SanPham::query()->findOrFail($id);
+        $listSanPham = SanPham::query()->get();
+        return view('clients.sanpham.details', compact('sanPham', 'listSanPham'));
+    }
 
+    public function shop(Request $request)
+    {
+        $search = $request->input("search");
+        $listSanPham = SanPham::query()
+            ->when($search, function ($query, $search) {
+                return $query->where("ten_san_pham", "like", "%{$search}%");
+            })
+            ->get();
+        return view('clients.sanpham.shop', compact('listSanPham'));
     }
 }
