@@ -7,11 +7,10 @@ use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-<<<<<<< HEAD
+
 use App\Http\Controllers\BaiVietController;
-=======
+
 use App\Http\Controllers\Client\ClientController;
->>>>>>> f27bf1b50f6056faf5963ea30afc3b62bb539705
 use App\Http\Controllers\Clients\checkout;
 use App\Http\Controllers\Clients\test;
 use GuzzleHttp\Client;
@@ -89,7 +88,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [SanPhamController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [SanPhamController::class, 'destroy'])->name('destroy');
             });
-<<<<<<< HEAD
+
         Route::prefix('baiviet')
             ->as('baiviet.')
             ->group(function () {
@@ -103,7 +102,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
             });
 
          
-=======
+
         Route::prefix('lienhe')
             ->as('lienhe.')
             ->group(function () {
@@ -126,7 +125,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [UserController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
             });
->>>>>>> f27bf1b50f6056faf5963ea30afc3b62bb539705
+
 
         // Route để hiển thị danh sách đơn hàng
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
