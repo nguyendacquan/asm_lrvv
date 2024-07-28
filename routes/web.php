@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
 use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\DonHangController;
@@ -7,6 +8,9 @@ use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\CartController;
+
+use App\Http\Controllers\BaiVietController;
+
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Clients\checkout;
 use App\Http\Controllers\Clients\test;
@@ -85,6 +89,21 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [SanPhamController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [SanPhamController::class, 'destroy'])->name('destroy');
             });
+
+        Route::prefix('baiviet')
+            ->as('baiviet.')
+            ->group(function () {
+                Route::get('/', [AdminBaiVietController::class, 'index'])->name('index');
+                Route::get('/create', [AdminBaiVietController::class, 'create'])->name('create');
+                Route::post('/store', [AdminBaiVietController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [AdminBaiVietController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [AdminBaiVietController::class, 'edit'])->name('edit');
+                Route::put('{id}/update', [AdminBaiVietController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
+            });
+
+         
+
         Route::prefix('lienhe')
             ->as('lienhe.')
             ->group(function () {
@@ -107,6 +126,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [UserController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
             });
+
 
         // Route để hiển thị danh sách đơn hàng
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
