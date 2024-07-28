@@ -3,10 +3,8 @@
 
 @section('content')
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-xxl">
-
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Quản lý dang mục sản phẩm</h4>
@@ -17,7 +15,6 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title align-content-center mb-0">{{ $title }}</h5>
-
                             <a href="{{ route('admins.sanphams.create') }}" class="btn btn-success"><i
                                     data-feather="plus-square"></i> Thêm sản phẩm</a>
                         </div>
@@ -26,7 +23,6 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
@@ -44,7 +40,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @foreach ($listSanPham as $index => $item)
                                             <tr>
                                                 <th scope="row">{{ $item->ma_san_pham }}</th>
@@ -56,9 +51,9 @@
                                                 <td>{{ $item->ten_san_pham }}</td>
                                                 <td>{{ $item->danhMuc->ten_danh_muc }}</td>
                                                 <td>{{ number_format($item->gia_san_pham) }}</td>
-                                                <td>{{ empty($item->gia_khuyen_mai) ? 0 : number_format($item->gia_khuyen_mai) }}</td>
+                                                <td>{{ empty($item->gia_khuyen_mai) ? 0 : number_format($item->gia_khuyen_mai) }}
+                                                </td>
                                                 <td>{{ $item->so_luong }}</td>
-
                                                 <td class="{{ $item->is_type == true ? 'text-success' : 'text-danger' }}">
                                                     {{ $item->is_type == true ? 'Hiển Thị' : 'Ẩn' }}
                                                 </td>
@@ -86,6 +81,6 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- container-fluid -->
+        </div>
     </div>
 @endsection

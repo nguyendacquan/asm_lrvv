@@ -35,9 +35,16 @@
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='index.html'>
+                    <a class='tp-link' href={{route('admins.users.index')}}>
                         <i data-feather="users"></i>
                         <span> Quản lý tải khoản </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class='tp-link' href='{{route('admins.lienhe.index')}}'>
+                        <i data-feather="inbox"></i>
+                        <span> Liên hệ </span>
 
                     </a>
                 </li>
