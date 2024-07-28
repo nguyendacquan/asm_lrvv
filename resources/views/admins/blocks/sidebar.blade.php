@@ -65,6 +65,13 @@
 
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='{{route('admins.donhang')}}'>
+                        <i data-feather="list"></i>
+                        <span> Đơn hàng </span>
+
+                    </a>
+                </li>
 
             </ul>
 
