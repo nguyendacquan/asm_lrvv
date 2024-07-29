@@ -12,7 +12,6 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\BaiVietController;
 
 use App\Http\Controllers\Client\ClientController;
-use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\Clients\checkout;
 use App\Http\Controllers\Clients\test;
 use GuzzleHttp\Client;
@@ -39,7 +38,11 @@ Route::get('login', [AuthController::class, 'showFormlogin']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/home', function () {
+    return view('home');
+});
 
 // Route::get('/admin', function () {
 //     return "Đây là trang admin";
@@ -133,14 +136,6 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         // Route để cập nhật trạng thái đơn hàng
         Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
     });
-
-Route::middleware(['auth'])->group(function () {
-    // Hiển thị trang thông tin tài khoản
-    Route::get('/account', [ClientUserController::class, 'show'])->name('account');
-
-    // Cập nhật thông tin tài khoản
-    Route::post('/account', [ClientUserController::class, 'update'])->name('account.update');
-});
 
 Route::get('details{id}', [ClientController::class, 'details'])->name('details');
 Route::get('/list-cart', [CartController::class, 'listCart'])->name('cart.list');

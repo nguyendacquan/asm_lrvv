@@ -61,26 +61,14 @@
                                 <!-- main menu navbar start -->
                                 <nav class="desktop-menu">
                                     <ul>
-                                        <li class="active"><a href="index.html">Home <i
-                                                    class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home version 01</a></li>
-                                                <li><a href="index-2.html">Home version 02</a></li>
-                                                <li><a href="index-3.html">Home version 03</a></li>
-                                                <li><a href="index-4.html">Home version 04</a></li>
-                                                <li><a href="index-5.html">Home version 05</a></li>
-                                                <li><a href="index-6.html">Home version 06</a></li>
-                                            </ul>
+                                        <li class=""><a href="{{ route('client.index') }}">Home</a>
                                         </li>
                                         <li class="position-static"><a href="#">pages</a>
-
                                         </li>
                                         <li>
                                             <a href="{{ route('shop') }}">shop</a>
-
                                         </li>
                                         <li><a href="blog-left-sidebar.html">Blog</a>
-
                                         </li>
                                         <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>
@@ -103,76 +91,56 @@
                                     @csrf
                                     <input type="text" name="search" value="{{ old('search') }}"
                                         placeholder="Search entire store hire" class="header-search-field">
-                                    <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                    <button class="header-search-btn"><i type="submit"
+                                            class="pe-7s-search"></i></button>
                                 </form>
                             </div>
                             <div class="header-configure-area">
-                                <ul class="nav justify-content-end align-items-center">
+                                <ul class="nav justify-content-end">
                                     <li class="user-hover">
-                                        @guest
-                                            @if (Route::has('login'))
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                                        @endif
-
-                                        @if (Route::has('register'))
-                                            <li class="nav-item"><a class="nav-link"
-                                                    href="{{ route('register') }}">Register</a></li>
-                                        @endif
-                                    @else
-                                        <li class="user-hover">
-                                            <a id="navbarDropdown" class="nav-link dropdown-toggle btn-user" href="#"
-                                                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" v-pre>
-                                                {{ Auth::user()->name }}
-                                            </a>
-                                            <ul class="dropdown-list">
-                                                @if (Auth::user()->role == 'Admin')
-                                                    <li><a href="{{ route('admins.dashboard') }}">Dashboard</a></li>
-                                                @endif
-                                                <li><a href="{{ route('account') }}">Account</a></li>
-                                                <li>
-                                                    <a href="{{ route('logout') }}"
-                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                        <i class="bi bi-box-arrow-right">Logout</i>
-                                                    </a>
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                        class="d-none">
-                                                        @csrf
-                                                    </form>
+                                        <a href="#">
+                                            <i class="pe-7s-user"></i>
+                                        </a>
+                                        <ul class="dropdown-list">
+                                            @guest
+                                                <li><a href="{{ route('login') }}">Login</a></li>
+                                                <li><a href="{{ route('register') }}">Register</a></li>
+                                                <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                            @else
+                                                <li><a href="#">{{ Auth::user()->name }}</a></li>
+                                                <li><a href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                 </li>
-                                            </ul>
-                                        </li>
-                                    @endguest
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            @endguest
+                                        </ul>
+
+
                                     </li>
                                     <li>
-                                        <a href="wishlist.html" class="nav-link">
+                                        <a href="wishlist.html">
                                             <i class="pe-7s-like"></i>
                                             <div class="notification">0</div>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('cart.list') }}" class="minicart-btn nav-link">
+                                        <a href="{{ route('cart.list') }}" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
                                             <div class="notification">
-                                                {{ session('cart') ? count(session('cart')) : '0' }}</div>
+                                                {{ session('cart') ? count(session('cart')) : '0' }}
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- mini cart area end -->
-
-
                 </div>
             </div>
         </div>
-        <!-- header middle area end -->
-    </div>
-    <!-- main header start -->
-
-    <!-- mobile header start -->
-    <!-- mobile header start -->
     <div class="mobile-header d-lg-none d-md-block sticky">
         <!--mobile header top start -->
         <div class="container-fluid">
@@ -201,20 +169,13 @@
                 </div>
             </div>
         </div>
-        <!-- mobile header top start -->
     </div>
-    <!-- mobile header end -->
-    <!-- mobile header end -->
-
-    <!-- offcanvas mobile menu start -->
-    <!-- off-canvas menu start -->
     <aside class="off-canvas-wrapper">
         <div class="off-canvas-overlay"></div>
         <div class="off-canvas-inner-content">
             <div class="btn-close-off-canvas">
                 <i class="pe-7s-close"></i>
             </div>
-
             <div class="off-canvas-inner">
                 <!-- search box start -->
                 <div class="search-box-offcanvas">
@@ -224,10 +185,8 @@
                     </form>
                 </div>
                 <!-- search box end -->
-
                 <!-- mobile menu start -->
                 <div class="mobile-navigation">
-
                     <!-- mobile menu navigation start -->
                     <nav>
                         <ul class="mobile-menu">
@@ -352,9 +311,32 @@
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="myaccount">
-                                    <a class="dropdown-item" href="my-account.html">my account</a>
-                                    <a class="dropdown-item" href="login-register.html"> login</a>
-                                    <a class="dropdown-item" href="login-register.html">register</a>
+                                    <!-- Check if the user is authenticated -->
+                                    @if (Auth::check())
+                                        <!-- Show 'My Account' link if the user is logged in -->
+                                        <a class="dropdown-item" href="{{ url('my-account.html') }}">My Account</a>
+
+                                        <!-- Check if the user is an admin -->
+                                        @if (Auth::user()->role === \App\Models\User::ROLE_ADMIN)
+                                            <!-- Show link to admin panel or admin-specific features -->
+                                            <a class="dropdown-item" href="{{ url('admin.html') }}">Admin Panel</a>
+                                        @endif
+
+                                        <!-- Show 'Logout' link -->
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+                                        <!-- Form for logout -->
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <!-- Show 'Login' and 'Register' links if the user is not logged in -->
+                                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                        <a class="dropdown-item" href="{{ url('login-register.html') }}">Register</a>
+                                    @endif
+
                                 </div>
                             </div>
                         </li>

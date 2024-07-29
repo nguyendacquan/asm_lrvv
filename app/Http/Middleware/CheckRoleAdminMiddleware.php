@@ -19,6 +19,8 @@ class CheckRoleAdminMiddleware
     {
         if (Auth::check() && Auth::user()->role === User::ROLE_ADMIN) {
             return $next($request);
+        }else if(Auth::check() && Auth::user()->role === User::ROLE_USER){
+            return redirect()->route("client.index");
         }
         abort(403);
     }
