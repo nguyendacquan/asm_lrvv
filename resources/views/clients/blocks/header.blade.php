@@ -105,21 +105,30 @@
                                             @guest
                                                 <li><a href="{{ route('login') }}">Login</a></li>
                                                 <li><a href="{{ route('register') }}">Register</a></li>
-                                                <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                               
                                             @else
-                                                <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                                <li><a href="{{ route('logout') }}"
-                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                                </li>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    style="display: none;">
+                                                @if (Auth::user()->role=== \App\Models\User::ROLE_ADMIN)
+                                                    <!-- If the user is an admin -->
+                                                    <li><a href="{{ route('admins.dashboard') }}">{{ Auth::user()->name }}</a></li>
+                                                    <li><a href="{{ route('logout') }}" 
+                                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                    </li>
+                                                    <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                                @else
+                                                    <!-- If the user is a regular user -->
+                                                    <li><a href="#">{{ Auth::user()->name }}</a></li>
+                                                    <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                                    <li><a href="{{ route('logout') }}" 
+                                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                    </li>
+                                                @endif
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
                                             @endguest
                                         </ul>
-
-
                                     </li>
+                                    
                                     <li>
                                         <a href="wishlist.html">
                                             <i class="pe-7s-like"></i>
@@ -288,60 +297,7 @@
                 </div>
                 <!-- mobile menu end -->
 
-                <div class="mobile-settings">
-                    <ul class="nav">
-                        <li>
-                            <div class="dropdown mobile-top-dropdown">
-                                <a href="#" class="dropdown-toggle" id="currency" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Currency
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="currency">
-                                    <a class="dropdown-item" href="#">$ USD</a>
-                                    <a class="dropdown-item" href="#">$ EURO</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown mobile-top-dropdown">
-                                <a href="#" class="dropdown-toggle" id="myaccount" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    My Account
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="myaccount">
-                                    <!-- Check if the user is authenticated -->
-                                    @if (Auth::check())
-                                        <!-- Show 'My Account' link if the user is logged in -->
-                                        <a class="dropdown-item" href="{{ url('my-account.html') }}">My Account</a>
-
-                                        <!-- Check if the user is an admin -->
-                                        @if (Auth::user()->role === \App\Models\User::ROLE_ADMIN)
-                                            <!-- Show link to admin panel or admin-specific features -->
-                                            <a class="dropdown-item" href="{{ url('admin.html') }}">Admin Panel</a>
-                                        @endif
-
-                                        <!-- Show 'Logout' link -->
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-                                        <!-- Form for logout -->
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @else
-                                        <!-- Show 'Login' and 'Register' links if the user is not logged in -->
-                                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                                        <a class="dropdown-item" href="{{ url('login-register.html') }}">Register</a>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+    
 
                 <!-- offcanvas widget area start -->
                 <div class="offcanvas-widget-area">
