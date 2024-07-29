@@ -47,7 +47,7 @@
                     <!-- start logo area -->
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="{{route('client.index')}}">
+                            <a href="{{ route('client.index') }}">
                                 <img src="{{ asset('assets/clients/img/logo/logo.png') }}" alt="Brand Logo">
                             </a>
                         </div>
@@ -61,26 +61,14 @@
                                 <!-- main menu navbar start -->
                                 <nav class="desktop-menu">
                                     <ul>
-                                        <li class="active"><a href="index.html">Home <i
-                                                    class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home version 01</a></li>
-                                                <li><a href="index-2.html">Home version 02</a></li>
-                                                <li><a href="index-3.html">Home version 03</a></li>
-                                                <li><a href="index-4.html">Home version 04</a></li>
-                                                <li><a href="index-5.html">Home version 05</a></li>
-                                                <li><a href="index-6.html">Home version 06</a></li>
-                                            </ul>
+                                        <li class=""><a href="{{ route('client.index') }}">Home</a>
                                         </li>
                                         <li class="position-static"><a href="#">pages</a>
-                                          
                                         </li>
                                         <li>
-                                            <a href="{{route('shop')}}">shop</a>
-                                         
+                                            <a href="{{ route('shop') }}">shop</a>
                                         </li>
                                         <li><a href="blog-left-sidebar.html">Blog</a>
-                                         
                                         </li>
                                         <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>
@@ -98,11 +86,13 @@
                             <div class="header-search-container">
                                 <button class="search-trigger d-xl-none d-lg-block"><i
                                         class="pe-7s-search"></i></button>
-                                <form action="{{route('client.index')}}" class="header-search-box d-lg-none d-xl-block" method="GET" >
+                                <form action="{{ route('client.index') }}"
+                                    class="header-search-box d-lg-none d-xl-block" method="GET">
                                     @csrf
-                                    <input type="text" name="search" value="{{ old('search') }}" placeholder="Search entire store hire"
-                                        class="header-search-field">
-                                    <button class="header-search-btn"><i type="submit" class="pe-7s-search"></i></button>
+                                    <input type="text" name="search" value="{{ old('search') }}"
+                                        placeholder="Search entire store hire" class="header-search-field">
+                                    <button class="header-search-btn"><i type="submit"
+                                            class="pe-7s-search"></i></button>
                                 </form>
                             </div>
                             <div class="header-configure-area">
@@ -112,10 +102,23 @@
                                             <i class="pe-7s-user"></i>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{route('login')}}">login</a></li>
-                                            <li><a href="{{route('register')}}">register</a></li>
-                                            <li><a href="{{route('clearCart')}}">my account</a></li>
+                                            @guest
+                                                <li><a href="{{ route('login') }}">Login</a></li>
+                                                <li><a href="{{ route('register') }}">Register</a></li>
+                                                <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                            @else
+                                                <li><a href="#">{{ Auth::user()->name }}</a></li>
+                                                <li><a href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                </li>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            @endguest
                                         </ul>
+
+
                                     </li>
                                     <li>
                                         <a href="wishlist.html">
@@ -126,7 +129,8 @@
                                     <li>
                                         <a href="{{ route('cart.list') }}" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
-                                            <div class="notification">{{ session('cart') ? count(session('cart')) : '0' }}
+                                            <div class="notification">
+                                                {{ session('cart') ? count(session('cart')) : '0' }}
                                             </div>
                                         </a>
                                     </li>
@@ -134,17 +138,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- mini cart area end -->
-
                 </div>
             </div>
         </div>
-        <!-- header middle area end -->
-    </div>
-    <!-- main header start -->
-
-    <!-- mobile header start -->
-    <!-- mobile header start -->
     <div class="mobile-header d-lg-none d-md-block sticky">
         <!--mobile header top start -->
         <div class="container-fluid">
@@ -173,20 +169,13 @@
                 </div>
             </div>
         </div>
-        <!-- mobile header top start -->
     </div>
-    <!-- mobile header end -->
-    <!-- mobile header end -->
-
-    <!-- offcanvas mobile menu start -->
-    <!-- off-canvas menu start -->
     <aside class="off-canvas-wrapper">
         <div class="off-canvas-overlay"></div>
         <div class="off-canvas-inner-content">
             <div class="btn-close-off-canvas">
                 <i class="pe-7s-close"></i>
             </div>
-
             <div class="off-canvas-inner">
                 <!-- search box start -->
                 <div class="search-box-offcanvas">
@@ -196,10 +185,8 @@
                     </form>
                 </div>
                 <!-- search box end -->
-
                 <!-- mobile menu start -->
                 <div class="mobile-navigation">
-
                     <!-- mobile menu navigation start -->
                     <nav>
                         <ul class="mobile-menu">
@@ -325,28 +312,30 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="myaccount">
                                     <!-- Check if the user is authenticated -->
-@if(Auth::check())
-<!-- Show 'My Account' link if the user is logged in -->
-<a class="dropdown-item" href="{{ url('my-account.html') }}">My Account</a>
+                                    @if (Auth::check())
+                                        <!-- Show 'My Account' link if the user is logged in -->
+                                        <a class="dropdown-item" href="{{ url('my-account.html') }}">My Account</a>
 
-<!-- Check if the user is an admin -->
-@if(Auth::user()->role === \App\Models\User::ROLE_ADMIN)
-    <!-- Show link to admin panel or admin-specific features -->
-    <a class="dropdown-item" href="{{ url('admin.html') }}">Admin Panel</a>
-@endif
+                                        <!-- Check if the user is an admin -->
+                                        @if (Auth::user()->role === \App\Models\User::ROLE_ADMIN)
+                                            <!-- Show link to admin panel or admin-specific features -->
+                                            <a class="dropdown-item" href="{{ url('admin.html') }}">Admin Panel</a>
+                                        @endif
 
-<!-- Show 'Logout' link -->
-<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                        <!-- Show 'Logout' link -->
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 
-<!-- Form for logout -->
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
-@else
-<!-- Show 'Login' and 'Register' links if the user is not logged in -->
-<a class="dropdown-item" href="{{ route('login') }}">Login</a>
-<a class="dropdown-item" href="{{ url('login-register.html') }}">Register</a>
-@endif
+                                        <!-- Form for logout -->
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <!-- Show 'Login' and 'Register' links if the user is not logged in -->
+                                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                        <a class="dropdown-item" href="{{ url('login-register.html') }}">Register</a>
+                                    @endif
 
                                 </div>
                             </div>

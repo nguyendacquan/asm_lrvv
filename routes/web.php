@@ -38,7 +38,7 @@ Route::get('login', [AuthController::class, 'showFormlogin']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/home', function () {
     return view('home');
@@ -102,7 +102,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
             });
 
-         
+
 
         Route::prefix('lienhe')
             ->as('lienhe.')
@@ -146,6 +146,3 @@ Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
 
 
 Route::resource('client', ClientController::class);
-
-
-
