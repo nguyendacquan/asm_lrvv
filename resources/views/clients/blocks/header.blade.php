@@ -112,8 +112,8 @@
                                             <i class="pe-7s-user"></i>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="login-register.html">login</a></li>
-                                            <li><a href="login-register.html">register</a></li>
+                                            <li><a href="{{route('login')}}">login</a></li>
+                                            <li><a href="{{route('register')}}">register</a></li>
                                             <li><a href="{{route('clearCart')}}">my account</a></li>
                                         </ul>
                                     </li>
@@ -324,9 +324,30 @@
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="myaccount">
-                                    <a class="dropdown-item" href="my-account.html">my account</a>
-                                    <a class="dropdown-item" href="login-register.html"> login</a>
-                                    <a class="dropdown-item" href="login-register.html">register</a>
+                                    <!-- Check if the user is authenticated -->
+@if(Auth::check())
+<!-- Show 'My Account' link if the user is logged in -->
+<a class="dropdown-item" href="{{ url('my-account.html') }}">My Account</a>
+
+<!-- Check if the user is an admin -->
+@if(Auth::user()->role === \App\Models\User::ROLE_ADMIN)
+    <!-- Show link to admin panel or admin-specific features -->
+    <a class="dropdown-item" href="{{ url('admin.html') }}">Admin Panel</a>
+@endif
+
+<!-- Show 'Logout' link -->
+<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+<!-- Form for logout -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+@else
+<!-- Show 'Login' and 'Register' links if the user is not logged in -->
+<a class="dropdown-item" href="{{ route('login') }}">Login</a>
+<a class="dropdown-item" href="{{ url('login-register.html') }}">Register</a>
+@endif
+
                                 </div>
                             </div>
                         </li>
