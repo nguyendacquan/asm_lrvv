@@ -6064,3 +6064,18 @@ blockquote {
 }
 
 /*----- footer area end -----*/
+.header-configure-area .nav-item .nav-link {
+  font-size: 12px; /* Thay đổi kích thước chữ tại đây */
+}
+
+.header-configure-area .nav {
+  display: flex;
+  align-items: center; /* Đảm bảo các mục căn chỉnh theo chiều dọc */
+}
+
+.header-configure-area .dropdown-list {
+  position: absolute;
+  background: white; /* Thay đổi màu nền nếu cần */
+  border: 1px solid #ddd; /* Thêm đường viền nếu cần */
+  z-index: 1000; /* Đảm bảo dropdown hiện lên trên các thành phần khác */
+}

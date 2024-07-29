@@ -47,7 +47,7 @@
                     <!-- start logo area -->
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="{{route('client.index')}}">
+                            <a href="{{ route('client.index') }}">
                                 <img src="{{ asset('assets/clients/img/logo/logo.png') }}" alt="Brand Logo">
                             </a>
                         </div>
@@ -73,14 +73,14 @@
                                             </ul>
                                         </li>
                                         <li class="position-static"><a href="#">pages</a>
-                                          
+
                                         </li>
                                         <li>
-                                            <a href="{{route('shop')}}">shop</a>
-                                         
+                                            <a href="{{ route('shop') }}">shop</a>
+
                                         </li>
                                         <li><a href="blog-left-sidebar.html">Blog</a>
-                                         
+
                                         </li>
                                         <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>
@@ -98,36 +98,63 @@
                             <div class="header-search-container">
                                 <button class="search-trigger d-xl-none d-lg-block"><i
                                         class="pe-7s-search"></i></button>
-                                <form action="{{route('client.index')}}" class="header-search-box d-lg-none d-xl-block" method="GET" >
+                                <form action="{{ route('client.index') }}"
+                                    class="header-search-box d-lg-none d-xl-block" method="GET">
                                     @csrf
-                                    <input type="text" name="search" value="{{ old('search') }}" placeholder="Search entire store hire"
-                                        class="header-search-field">
-                                    <button class="header-search-btn"><i type="submit" class="pe-7s-search"></i></button>
+                                    <input type="text" name="search" value="{{ old('search') }}"
+                                        placeholder="Search entire store hire" class="header-search-field">
+                                    <button class="header-search-btn"><i class="pe-7s-search"></i></button>
                                 </form>
                             </div>
                             <div class="header-configure-area">
-                                <ul class="nav justify-content-end">
+                                <ul class="nav justify-content-end align-items-center">
                                     <li class="user-hover">
-                                        <a href="#">
-                                            <i class="pe-7s-user"></i>
-                                        </a>
-                                        <ul class="dropdown-list">
-                                            <li><a href="login-register.html">login</a></li>
-                                            <li><a href="login-register.html">register</a></li>
-                                            <li><a href="{{route('clearCart')}}">my account</a></li>
-                                        </ul>
+                                        @guest
+                                            @if (Route::has('login'))
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                                        @endif
+
+                                        @if (Route::has('register'))
+                                            <li class="nav-item"><a class="nav-link"
+                                                    href="{{ route('register') }}">Register</a></li>
+                                        @endif
+                                    @else
+                                        <li class="user-hover">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle btn-user" href="#"
+                                                role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false" v-pre>
+                                                {{ Auth::user()->name }}
+                                            </a>
+                                            <ul class="dropdown-list">
+                                                @if (Auth::user()->role == 'Admin')
+                                                    <li><a href="{{ route('admins.dashboard') }}">Dashboard</a></li>
+                                                @endif
+                                                <li><a href="{{ route('account') }}">Account</a></li>
+                                                <li>
+                                                    <a href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                        <i class="bi bi-box-arrow-right">Logout</i>
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                        class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endguest
                                     </li>
                                     <li>
-                                        <a href="wishlist.html">
+                                        <a href="wishlist.html" class="nav-link">
                                             <i class="pe-7s-like"></i>
                                             <div class="notification">0</div>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('cart.list') }}" class="minicart-btn">
+                                        <a href="{{ route('cart.list') }}" class="minicart-btn nav-link">
                                             <i class="pe-7s-shopbag"></i>
-                                            <div class="notification">{{ session('cart') ? count(session('cart')) : '0' }}
-                                            </div>
+                                            <div class="notification">
+                                                {{ session('cart') ? count(session('cart')) : '0' }}</div>
                                         </a>
                                     </li>
                                 </ul>
@@ -135,6 +162,7 @@
                         </div>
                     </div>
                     <!-- mini cart area end -->
+
 
                 </div>
             </div>

@@ -25,7 +25,11 @@ class User extends Authenticatable
         'email',
         'password',
         'dia_chi',
+        'ngay_sinh',
         'so_dien_thoai',
+        'hinh_anh',
+        'gioi_tinh',
+        'trang_thai',
         'role',
     ];
 
@@ -46,6 +50,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed'
+        'ngay_sinh' => 'date',
     ];
 }
