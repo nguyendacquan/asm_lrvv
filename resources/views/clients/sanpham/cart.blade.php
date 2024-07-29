@@ -3,6 +3,7 @@
 
 
 @section('content')
+
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -86,6 +87,12 @@
                                             @endforeach
 
                                         </tbody>
+                                        @if (session('success'))
+    <div class="alert alert-success">{{session('success')}}</div>
+@endif
+@if (session('quantity'))
+    <div class="alert alert-danger">{{session('quantity')}}</div>
+@endif
                                     </table>
                                 </div>
                                 <!-- Cart Update Option -->

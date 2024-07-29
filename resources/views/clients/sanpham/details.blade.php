@@ -2,6 +2,7 @@
 
 
 @section('content')
+  
     <div class="shop-main-wrapper section-padding pb-0">
         <div class="container">
             <div class="row">
@@ -60,14 +61,15 @@
                                         <span class="price-old"><del>{{ number_format($sanPham->gia_san_pham) }}
                                                 đ</del></span>
                                     </div>
-                                    <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
-                                    <div class="product-countdown" data-countdown="2022/12/20"></div>
+                                    {{-- <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                    <div class="product-countdown" data-countdown="2022/12/20"></div> --}}
                                     <div class="availability">
                                         <i class="fa fa-check-circle"></i>
-                                        <span>200 in stock</span>
+                                        <span
+                                            id="availableQuantity">{{ $sanPham->so_luong === 0 ? 'Hết hàng' : "Số lượng: $sanPham->so_luong" }}</span>
                                     </div>
                                     <p class="pro-desc">{{ $sanPham->mo_ta_ngan }}</p>
-                                    <form action="{{ route('cart.add') }}" method="POST">
+                                    <form action="{{ route('cart.add') }}" method="POST" id="cartForm">
                                         @csrf
                                         <div class="quantity-cart-box d-flex align-items-center">
                                             <h6 class="option-title">qty:</h6>
@@ -83,7 +85,8 @@
                                         </div>
                                     </form>
 
-                                    <div class="pro-size">
+
+                                    {{-- <div class="pro-size">
                                         <h6 class="option-title">size :</h6>
                                         <select class="nice-select">
                                             <option>S</option>
@@ -91,8 +94,8 @@
                                             <option>L</option>
                                             <option>XL</option>
                                         </select>
-                                    </div>
-                                    <div class="color-option">
+                                    </div> --}}
+                                    {{-- <div class="color-option">
                                         <h6 class="option-title">color :</h6>
                                         <ul class="color-categories">
                                             <li>
@@ -108,7 +111,7 @@
                                                 <a class="c-brown" href="#" title="Brown"></a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
                                                 class="pe-7s-refresh-2"></i>compare</a>
@@ -121,9 +124,23 @@
                                         <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
                                         <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
                                     </div>
+                                   <div class="mt-3">
+                                    @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
+                                @if (session('quantity'))
+                                    <div class="alert alert-danger">{{ session('quantity') }}</div>
+                                @endif
+                            
+                                @error('quantity')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                   </div>
                                 </div>
                             </div>
+                            
                         </div>
+                       
                     </div>
                     <!-- product details inner end -->
 
@@ -290,14 +307,14 @@
                                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i
                                                     class="pe-7s-search"></i></span></a>
                                     </div>
-                                   <form action="{{route('cart.add')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="quantity" value="1">
-                                    <input type="hidden" name="product_id" value="{{$item->id}}">
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                   </form>
+                                    <form action="{{ route('cart.add') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                        <div class="cart-hover">
+                                            <button class="btn btn-cart">add to cart</button>
+                                        </div>
+                                    </form>
                                 </figure>
                                 <div class="product-caption text-center">
                                     <div class="product-identity">
@@ -369,5 +386,23 @@
                 $(this).val(1);
             }
         })
+    </script>
+    {{-- // check so luong --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('cartForm');
+            const quantityInput = document.getElementById('quantityInput');
+            const availableQuantityElement = document.getElementById('availableQuantity');
+            const availableQuantity = parseInt(availableQuantityElement.textContent);
+
+            form.addEventListener('submit', function(event) {
+                const requestedQuantity = parseInt(quantityInput.value);
+
+                if (requestedQuantity > availableQuantity) {
+                    event.preventDefault(); // Ngăn chặn gửi form
+                    alert('Số lượng yêu cầu vượt quá số lượng có sẵn.');
+                }
+            });
+        });
     </script>
 @endsection
