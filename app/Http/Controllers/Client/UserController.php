@@ -2,68 +2,63 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    //
+    public function edit()
     {
-        //
-        $user = Auth::user();
-        return view("clients.myaccount.myaccount", compact("user"));
+        $user = Auth::user(); // Lấy thông tin người dùng hiện tại
+        return view('clients.myaccount.myaccount', compact('user'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request)
     {
-        //
-    }
+        $user = Auth::user(); // Lấy người dùng hiện tại
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Xác thực dữ liệu đầu vào
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gioi_tinh' => 'required|string|max:255',
+            'hinh_anh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'current_pwd' => 'required|string',
+            'new_pwd' => 'nullable|string|min:6|confirmed',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Cập nhật thông tin người dùng
+        $user->name = $request->name;
+        $user->gioi_tinh = $request->gioi_tinh;
+        $user->dia_chi = $request->dia_chi;
+        $user->so_dien_thoai = $request->so_dien_thoai;
+        $user->ngay_sinh = $request->ngay_sinh;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Xử lý tải lên hình ảnh
+        if ($request->hasFile('hinh_anh')) {
+            // Xóa hình ảnh cũ nếu có
+            if ($user->hinh_anh) {
+                Storage::delete($user->hinh_anh);
+            }
+            // Lưu hình ảnh mới
+            $path = $request->file('hinh_anh')->store('avatars', 'public');
+            $user->hinh_anh = $path;
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // Cập nhật mật khẩu nếu người dùng cung cấp mật khẩu hiện tại
+        if (password_verify($request->current_pwd, $user->password)) {
+            if ($request->new_pwd) {
+                $user->password = bcrypt($request->new_pwd);
+            }
+        } else {
+            return back()->withErrors(['current_pwd' => 'Mật khẩu hiện tại không đúng.']);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Lưu các thay đổi
+        $user->save();
+
+        return redirect()->route('profile.edit')->with('success', 'Cập nhật tài khoản thành công.');
     }
 }

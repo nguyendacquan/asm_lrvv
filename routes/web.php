@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\UserController as ClientUserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -107,7 +108,8 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.u
 Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
-Route::get('/myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
+Route::get('/profile', [ClientUserController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ClientUserController::class, 'update'])->name('profile.update');
 Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
 Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
 

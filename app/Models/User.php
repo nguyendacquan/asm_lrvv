@@ -22,10 +22,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'hinh_anh',
+        'gioi_tinh',
         'email',
         'password',
         'dia_chi',
         'so_dien_thoai',
+        'trang_thai',
+        'ngay_sinh',
         'role',
     ];
 

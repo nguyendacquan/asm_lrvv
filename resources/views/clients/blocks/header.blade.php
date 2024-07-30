@@ -112,11 +112,11 @@
                                                     <li><a href="{{ route('logout') }}" 
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
-                                                    <li><a href="{{ route('myaccount') }}">My Account</a></li>
+                                                    <li><a href="{{ route('profile.edit') }}">My Account</a></li>
                                                 @else
                                                     <!-- If the user is a regular user -->
                                                     <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                                    <li><a href="{{ route('myaccount') }}">My Account</a></li>
+                                                    <li><a href="{{ route('profile.edit') }}">My Account</a></li>
                                                     <li><a href="{{ route('logout') }}" 
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
