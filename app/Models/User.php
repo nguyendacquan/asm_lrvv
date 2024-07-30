@@ -24,8 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'dia_chi',
-        'so_dien_thoai',
+        'address',
+        'phone',
         'role',
     ];
 
@@ -48,4 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed'
     ];
+
+    public function donHang(){
+        return $this->hasMany(DonHang::class);
+    }
 }

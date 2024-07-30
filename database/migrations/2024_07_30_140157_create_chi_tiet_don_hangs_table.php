@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('chi_tiet_don_hangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(DonHang::class)->constrained(); // Khóa ngoại liên kết với bảng don_hangs
-            $table->foreignIdFor(SanPham::class)->constrained(); // Khóa ngoại liên kết với bảng san_phams
+            $table->foreignIdFor(DonHang::class)->constrained();
+            $table->foreignIdFor(SanPham::class)->constrained();
+
+            $table->double('don_gia');
             $table->unsignedInteger('so_luong');
-            $table->double('gia');
+            $table->double('thanh_tien');
+
             $table->timestamps();
         });
     }

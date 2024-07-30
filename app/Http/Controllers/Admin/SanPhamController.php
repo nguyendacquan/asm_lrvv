@@ -18,6 +18,7 @@ class SanPhamController extends Controller
     public function index()
     {
         //
+        
         $title = "Thông tin Sản phẩm";
         $listSanPham = SanPham::orderByDesc('is_type')->get();
         return view("admins.sanphams.index", compact("title", "listSanPham"));
