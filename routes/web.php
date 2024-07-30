@@ -24,9 +24,9 @@ Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
-    return view('home');
-});
+// Route::get('/home', function () {
+//     return view('home');
+// });
 
 
 Route::middleware(['auth', 'auth.admin'])->prefix('admins')
@@ -94,16 +94,9 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [UserController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
             });
-
-
-        // Route để hiển thị danh sách đơn hàng
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
-
         Route::get('/dashboard', [ThongKeController::class, 'index'])->name('dashboard');
-
-        // Route để hiển thị chi tiết đơn hàng
         Route::get('/donhang/{id}', [DonHangController::class, 'show'])->name('chitietdonhang');
-        // Route để cập nhật trạng thái đơn hàng
         Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
     });
 
@@ -113,6 +106,10 @@ Route::post('/add-to-cart', [CartController::class, 'addCart'])->name('cart.add'
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+Route::get('/myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
+Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
+Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
 
 
 Route::resource('client', ClientController::class);

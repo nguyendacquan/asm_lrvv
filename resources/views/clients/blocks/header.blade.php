@@ -70,7 +70,7 @@
                                         </li>
                                         <li><a href="blog-left-sidebar.html">Blog</a>
                                         </li>
-                                        <li><a href="contact-us.html">Contact us</a></li>
+                                        <li><a href="{{ route('lienhe') }}">Contact us</a></li>
                                     </ul>
                                 </nav>
                                 <!-- main menu navbar end -->
@@ -112,11 +112,11 @@
                                                     <li><a href="{{ route('logout') }}" 
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
-                                                    <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                                    <li><a href="{{ route('myaccount') }}">My Account</a></li>
                                                 @else
                                                     <!-- If the user is a regular user -->
                                                     <li><a href="#">{{ Auth::user()->name }}</a></li>
-                                                    <li><a href="{{ route('clearCart') }}">My Account</a></li>
+                                                    <li><a href="{{ route('myaccount') }}">My Account</a></li>
                                                     <li><a href="{{ route('logout') }}" 
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
@@ -130,7 +130,7 @@
                                     
                                     <li>
                                         <a href="wishlist.html">
-                                            <i class="pe-7s-like"></i>
+                                            <i class="pe-7s-like "></i>
                                             <div class="notification">0</div>
                                         </a>
                                     </li>

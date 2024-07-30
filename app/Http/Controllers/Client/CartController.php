@@ -77,7 +77,6 @@ class CartController extends Controller
         // Redirect về trang trước đó
         return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
-    
 
    public function updateCart(Request $request)
 {
