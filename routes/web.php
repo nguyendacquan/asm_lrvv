@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
+use App\Http\Controllers\Admin\ThongKeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\CartController;
@@ -97,6 +98,8 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
 
         // Route để hiển thị danh sách đơn hàng
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
+
+        Route::get('/dashboard', [ThongKeController::class, 'index'])->name('dashboard');
 
         // Route để hiển thị chi tiết đơn hàng
         Route::get('/donhang/{id}', [DonHangController::class, 'show'])->name('chitietdonhang');
