@@ -1,34 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use App\Models\DonHang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
-class ThongKeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Lấy tất cả đơn hàng
-        $donHangs = DonHang::with('chiTietDonHangs')->get();
-
-        // Tổng số đơn hàng
-        $tongDonHangs = DonHang::count();
-
-        // Tổng tiền của tất cả đơn hàng
-        $tongTien = DonHang::sum('tong_tien');
-
-        // Tổng số đơn hàng theo trạng thái
-        $donHangDangXuLy = DonHang::where('trang_thai', 'Đang xử lý')->count();
-        $donHangDaGiao = DonHang::where('trang_thai', 'Đã giao')->count();
-        $donHangHuy = DonHang::where('trang_thai', 'Hủy')->count();
-
-        return view('admins.dashboard', compact('donHangs', 'tongDonHangs', 'tongTien', 'donHangDangXuLy', 'donHangDaGiao', 'donHangHuy'));
+        //
+        $user = Auth::user();
+        return view("clients.myaccount.myaccount", compact("user"));
     }
 
     /**

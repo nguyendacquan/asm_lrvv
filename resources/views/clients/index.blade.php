@@ -143,6 +143,7 @@
                     <div class="section-title text-center">
                         <h2 class="title">our products</h2>
                         <p class="sub-title">Add our products to weekly lineup</p>
+                        
                     </div>
                     <!-- section title start -->
                 </div>
@@ -187,6 +188,15 @@
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                         </div>
                                         <div class="cart-hover">
+                                            @if ($item->so_luong===0)
+                                          
+                                              
+                                                <div class="cart-hover">
+                                                    <button class="btn btn-cart">Hết hàng</button>
+
+                                                </div>
+                                             
+                                            @else
                                             <form action="{{route('cart.add')}}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="quantity" value="1">
@@ -195,7 +205,9 @@
                                                     <button class="btn btn-cart">add to cart</button>
                                                 </div>
                                                </form>
-                                           
+                                                
+                                            @endif
+ 
                                         </div>
                                     </figure>
                                     <div class="product-caption text-center">
@@ -229,6 +241,7 @@
                                     <!-- product item end -->
 
                                 </div>
+                                
                             </div>
                             <div class="tab-pane fade" id="tab2">
                                 <div class="product-carousel-4 slick-row-10 slick-arrow-style">

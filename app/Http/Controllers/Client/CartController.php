@@ -56,7 +56,7 @@ class CartController extends Controller
             if ($newQuantity > $sanPham->so_luong) {
                 // Nếu tổng số lượng vượt quá số lượng có sẵn, điều chỉnh số lượng
                 $cart[$productId]['so_luong'] = $sanPham->so_luong;
-                return redirect()->back()->withErrors(['quantity' => 'Vượt quá số lượng có sẵn!']);
+                return redirect()->back()->withErrors(['quantity' => "Số lượng trong giỏ hàng của bạn đã thêm vượt quá sản phẩm còn lại!"]);
             } else {
                 // Cập nhật số lượng trong giỏ hàng
                 $cart[$productId]['so_luong'] = $newQuantity;
@@ -77,7 +77,6 @@ class CartController extends Controller
         // Redirect về trang trước đó
         return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
-    
 
    public function updateCart(Request $request)
 {

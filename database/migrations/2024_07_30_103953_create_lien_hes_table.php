@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('lien_hes', function (Blueprint $table) {
             $table->id();
             $table->string('ho_va_ten');
-            $table->string('email')->unique();
+            $table->string('so_dien_thoai');
+            $table->string('email');
             $table->text('message');
+            $table->text('chu_de');
             $table->timestamps();
         });
     }

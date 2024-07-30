@@ -2,7 +2,6 @@
 
 
 @section('content')
-  
     <div class="shop-main-wrapper section-padding pb-0">
         <div class="container">
             <div class="row">
@@ -69,78 +68,55 @@
                                             id="availableQuantity">{{ $sanPham->so_luong === 0 ? 'Hết hàng' : "Số lượng: $sanPham->so_luong" }}</span>
                                     </div>
                                     <p class="pro-desc">{{ $sanPham->mo_ta_ngan }}</p>
-                                    <form action="{{ route('cart.add') }}" method="POST" id="cartForm">
-                                        @csrf
-                                        <div class="quantity-cart-box d-flex align-items-center">
-                                            <h6 class="option-title">qty:</h6>
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" name="quantity" value="1" id="quantityInput">
-                                                </div>
-                                                <input type="hidden" name="product_id" value="{{ $sanPham->id }}">
-                                            </div>
-                                            <div class="action_link">
-                                                <button type="submit" class="btn btn-cart2">Add to cart</button>
-                                            </div>
+                                    @if ($sanPham->so_luong === 0)
+                                        <div class="action_link mb-3">
+                                            <button type="submit" disabled class="btn btn-cart2">Add to cart</button>
                                         </div>
-                                    </form>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('cart.add') }}" method="POST" id="cartForm">
+                                            @csrf
+                                            <div class="quantity-cart-box d-flex align-items-center">
+                                                <h6 class="option-title">qty:</h6>
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                        <input type="text" name="quantity" value="1"
+                                                            id="quantityInput">
+                                                    </div>
+                                                    <input type="hidden" name="product_id" value="{{ $sanPham->id }}">
+                                                </div>
+                                                <div class="action_link">
+                                                    <button type="submit" class="btn btn-cart2">Add to cart</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endif
 
+                                    {{-- color size --}}
 
-                                    {{-- <div class="pro-size">
-                                        <h6 class="option-title">size :</h6>
-                                        <select class="nice-select">
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
-                                        </select>
-                                    </div> --}}
-                                    {{-- <div class="color-option">
-                                        <h6 class="option-title">color :</h6>
-                                        <ul class="color-categories">
-                                            <li>
-                                                <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                            </li>
-                                            <li>
-                                                <a class="c-darktan" href="#" title="Darktan"></a>
-                                            </li>
-                                            <li>
-                                                <a class="c-grey" href="#" title="Grey"></a>
-                                            </li>
-                                            <li>
-                                                <a class="c-brown" href="#" title="Brown"></a>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
-                                    <div class="useful-links">
-                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                class="pe-7s-refresh-2"></i>compare</a>
-                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                class="pe-7s-like"></i>wishlist</a>
-                                    </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                         <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
                                         <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
                                         <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
                                     </div>
-                                   <div class="mt-3">
-                                    @if (session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                @endif
-                                @if (session('quantity'))
-                                    <div class="alert alert-danger">{{ session('quantity') }}</div>
-                                @endif
-                            
-                                @error('quantity')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                                   </div>
+                                    <div class="mt-3">
+                                        @if (session('success'))
+                                            <div class="alert alert-success">{{ session('success') }}</div>
+                                        @endif
+                                        @if (session('quantity'))
+                                            <div class="text-danger">{{ session('quantity') }}</div>
+                                        @endif
+
+                                        @error('quantity')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                            
+
                         </div>
-                       
+
                     </div>
                     <!-- product details inner end -->
 
