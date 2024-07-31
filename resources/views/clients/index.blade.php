@@ -2266,3 +2266,17 @@
 </main>
 
 @endsection
+@section('js')
+<script>
+    $(document).ready(function(){
+        $('.hero-slider-active').slick({
+            autoplay: true,
+            autoplaySpeed: 300, 
+            arrows: true,
+            dots: true,
+            fade: true,
+            cssEase: 'linear'
+        });
+    });
+</script>
+@endsection
