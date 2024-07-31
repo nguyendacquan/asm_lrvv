@@ -1,32 +1,16 @@
 <?php
 
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\LienHeController;
-=======
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
->>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\DonHangController;
-use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\SanPhamController;
-<<<<<<< HEAD
-use App\Http\Controllers\Admin\ThongKeController;
-use App\Http\Controllers\Client\ClientController;
-use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
-=======
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\OrderController;
 use Illuminate\Support\Facades\Route;
->>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 
 
 Route::get('/', function () {
@@ -91,19 +75,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
             });
 
-            Route::prefix('slider')
-            ->as('slider.')
-            ->group(function () {
-                Route::get('/', [BannerController::class, 'index'])->name('index');
-                Route::get('/create', [BannerController::class, 'create'])->name('create');
-                Route::post('/store', [BannerController::class, 'store'])->name('store');
-                Route::get('/show/{id}', [BannerController::class, 'show'])->name('show');
-                Route::get('{id}/edit', [BannerController::class, 'edit'])->name('edit');
-                Route::put('{id}/update', [BannerController::class, 'update'])->name('update');
-                Route::delete('{id}/destroy', [BannerController::class, 'destroy'])->name('destroy');
-            });
-
-       
+                  
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
