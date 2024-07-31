@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
-use App\Http\Controllers\Admin\DanhMucController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LienHeController;
+use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Admin\ThongKeController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ClientController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
 
 
 Route::get('/', function () {
@@ -70,7 +71,17 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
             });
 
-
+            Route::prefix('slider')
+            ->as('slider.')
+            ->group(function () {
+                Route::get('/', [BannerController::class, 'index'])->name('index');
+                Route::get('/create', [BannerController::class, 'create'])->name('create');
+                Route::post('/store', [BannerController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [BannerController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [BannerController::class, 'edit'])->name('edit');
+                Route::put('{id}/update', [BannerController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [BannerController::class, 'destroy'])->name('destroy');
+            });
 
         Route::prefix('lienhe')
             ->as('lienhe.')
@@ -116,3 +127,4 @@ Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
 
 
 Route::resource('client', ClientController::class);
+

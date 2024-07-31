@@ -78,6 +78,12 @@
                         <span> Quản lí bài viết </span>
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='{{route('admins.slider.index')}}'>
+                        <i data-feather="list"></i>
+                        <span> Quản lí Slider </span>
+                    </a>
+                </li>
 
             </ul>
 
