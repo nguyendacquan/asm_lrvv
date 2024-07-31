@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\lien_he;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,41 +14,25 @@ class MailConfirm extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $lienHe;
+    public $images;
+    public function __construct($lienHe, $images)
     {
-        //
+        $this->lienHe = $lienHe;
+        $this->images = $images;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Mail Confirm',
-        );
-    }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
+    public function build()
     {
-        return [];
+        $email = $this->view('clients.contact.mail')
+            ->with('lienHe', $this->lienHe)
+            ->subject('Liên hệ từ website');
+        if ($this->images) {
+            $email->attach(storage_path('app/public/'. $this->images));
+        }
+
+        return $email;
     }
 }

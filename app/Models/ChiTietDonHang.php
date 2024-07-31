@@ -8,23 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class ChiTietDonHang extends Model
 {
     use HasFactory;
-    // Khai báo các trường có thể được gán giá trị hàng loạt
+
     protected $fillable = [
         'don_hang_id',
         'san_pham_id',
+        'don_gia',
         'so_luong',
-        'gia',
+        'thanh_tien',
     ];
 
-    // Khai báo quan hệ với mô hình DonHang
-    public function donHang()
-    {
-        return $this->belongsTo(DonHang::class, 'don_hang_id');
+    public function donHang(){
+        return $this->belongsTo(DonHang::class);
     }
-
-    // Khai báo quan hệ với mô hình SanPham
-    public function sanPham()
-    {
-        return $this->belongsTo(SanPham::class, 'san_pham_id');
+    public function sanPham(){
+        return $this->belongsTo(SanPham::class);
     }
 }

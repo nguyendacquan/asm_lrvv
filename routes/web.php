@@ -1,17 +1,32 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\LienHeController;
+=======
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
+>>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\DonHangController;
+use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\SanPhamController;
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\ThongKeController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
+=======
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\OrderController;
+use Illuminate\Support\Facades\Route;
+>>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 
 
 Route::get('/', function () {
@@ -25,17 +40,22 @@ Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
-    return view('home');
+
+Route::middleware('auth')->prefix('donhangs')
+->as('donhangs.')
+->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('index');
+    Route::get('/create', [OrderController::class, 'create'])->name('create');
+    Route::post('/store', [OrderController::class, 'store'])->name('store');
+    Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
+    Route::put('{id}/update', [OrderController::class, 'update'])->name('update');
 });
 
 
 Route::middleware(['auth', 'auth.admin'])->prefix('admins')
     ->as('admins.')
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admins.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminController::class,'index'])->name('dashboard');
         Route::prefix('danhmucs')
             ->as('danhmucs.')
             ->group(function () {
@@ -83,17 +103,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [BannerController::class, 'destroy'])->name('destroy');
             });
 
-        Route::prefix('lienhe')
-            ->as('lienhe.')
-            ->group(function () {
-                Route::get('/', [LienHeController::class, 'index'])->name('index');
-                Route::get('/create', [LienHeController::class, 'create'])->name('create');
-                Route::post('/store', [LienHeController::class, 'store'])->name('store');
-                Route::get('/show/{id}', [LienHeController::class, 'show'])->name('show');
-                Route::get('{id}/edit', [LienHeController::class, 'edit'])->name('edit');
-                Route::put('{id}/update', [LienHeController::class, 'update'])->name('update');
-                Route::delete('{id}/destroy', [LienHeController::class, 'destroy'])->name('destroy');
-            });
+       
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
@@ -105,17 +115,14 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::put('{id}/update', [UserController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
             });
-
-
-        // Route để hiển thị danh sách đơn hàng
-        Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
-
-        Route::get('/dashboard', [ThongKeController::class, 'index'])->name('dashboard');
-
-        // Route để hiển thị chi tiết đơn hàng
-        Route::get('/donhang/{id}', [DonHangController::class, 'show'])->name('chitietdonhang');
-        // Route để cập nhật trạng thái đơn hàng
-        Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
+        Route::prefix('donhangs')
+            ->as('donhangs.')
+            ->group(function () {
+                Route::get('/', [DonHangController::class, 'index'])->name('index');
+                Route::get('/show/{id}', [DonHangController::class, 'show'])->name('show');
+                Route::put('{id}/update', [DonHangController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [DonHangController::class, 'destroy'])->name('destroy');
+            });
     });
 
 Route::get('details{id}', [ClientController::class, 'details'])->name('details');
@@ -124,6 +131,10 @@ Route::post('/add-to-cart', [CartController::class, 'addCart'])->name('cart.add'
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+Route::get('/myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
+Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
+Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
 
 
 Route::resource('client', ClientController::class);

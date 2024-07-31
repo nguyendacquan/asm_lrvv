@@ -9,12 +9,15 @@
                       </button>
                   </li>
                   <li class="d-none d-lg-block">
-                      <div class="position-relative topbar-search">
-                          <input type="text" class="form-control bg-light bg-opacity-75 border-light ps-4"
-                              placeholder="Search...">
-                          <i
-                              class="mdi mdi-magnify fs-16 position-absolute text-muted top-50 translate-middle-y ms-2"></i>
-                      </div>
+                      <form action="{{route('admins.dashboard')}}" method="GET">
+                        @csrf
+                        <div class="position-relative topbar-search">
+                            <input type="text" name="search" class="form-control bg-light bg-opacity-75 border-light ps-4"
+                                placeholder="Search...">
+                            <i
+                                class="mdi mdi-magnify fs-16 position-absolute text-muted top-50 translate-middle-y ms-2"></i>
+                        </div>
+                      </form>
                   </li>
               </ul>
 
@@ -156,31 +159,17 @@
                           <img src="{{ asset('assets/admin/images/users/user-11.jpg') }}" alt="user-image"
                               class="rounded-circle">
                           <span class="pro-user-name ms-1">
-                              Christian <i class="mdi mdi-chevron-down"></i>
+                             {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
                           </span>
                       </a>
                       <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
-                          <!-- item-->
-                          <div class="dropdown-header noti-title">
-                              <h6 class="text-overflow m-0">Welcome !</h6>
-                          </div>
-                          <!-- item-->
-                          <a class='dropdown-item notify-item' href='pages-profile.html'>
-                              <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
-                              <span>My Account</span>
-                          </a>
-                          <!-- item-->
-                          <a class='dropdown-item notify-item' href='auth-lock-screen.html'>
-                              <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
-                              <span>Lock Screen</span>
-                          </a>
+                   
+                          
                           <div class="dropdown-divider"></div>
                           <!-- item-->
-                          <form action="{{route('login')}}" method="post">
-                            <a class='dropdown-item notify-item' href=''>
-                                <i class="mdi mdi-location-exit fs-16 align-middle"></i>
+                          <form action="{{route('logout')}}" method="post" style="text-align: center">
+                            @csrf
                                 <button type="submit" class="btn btn-danger">Logout</button>
-                            </a>
                           </form>
                       </div>
                   </li>

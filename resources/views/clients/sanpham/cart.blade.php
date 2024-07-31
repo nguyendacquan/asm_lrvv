@@ -3,7 +3,6 @@
 
 
 @section('content')
-
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -36,8 +35,8 @@
 
                                 <!-- Cart Table Area -->
                                 <div class="cart-table table-responsive">
-                                    <table class="table table-bordered" >
-                                        <thead >
+                                    <table class="table table-bordered">
+                                        <thead>
                                             <tr>
                                                 <th class="pro-thumbnail">Thumbnail</th>
                                                 <th class="pro-title">Product</th>
@@ -55,25 +54,30 @@
                                                             <img class="img-fluid"
                                                                 src="{{ url('storage/', $item['hinh_anh']) }}"
                                                                 alt="Product" />
-                                                                <input type="hidden" name="cart[{{ $key }}][hinh_anh]" value="{{ $item['hinh_anh'] }}">
+                                                            <input type="hidden" name="cart[{{ $key }}][hinh_anh]"
+                                                                value="{{ $item['hinh_anh'] }}">
 
                                                         </a>
                                                     </td>
                                                     <td class="pro-title">
                                                         <a
                                                             href="{{ route('details', $key) }}">{{ $item['ten_san_pham'] }}</a>
-                                                            <input type="hidden" name="cart[{{ $key }}][ten_san_pham]" value="{{ $item['ten_san_pham'] }}">
+                                                        <input type="hidden" name="cart[{{ $key }}][ten_san_pham]"
+                                                            value="{{ $item['ten_san_pham'] }}">
 
 
                                                     </td>
                                                     <td class="pro-price">
                                                         <span>{{ number_format($item['gia'], 0, '', '.') }} đ</span>
-                                                        <input type="hidden" name="cart[{{ $key }}][gia]" value="{{ $item['gia'] }}">
+                                                        <input type="hidden" name="cart[{{ $key }}][gia]"
+                                                            value="{{ $item['gia'] }}">
 
                                                     </td>
                                                     <td class="pro-quantity">
                                                         <div class="pro-qty">
-                                                            <input type="text" class="quantityInput" data-price="{{ $item['gia'] }}" value="{{ $item['so_luong'] }}"name="cart[{{ $key }}][so_luong]">
+                                                            <input type="text" class="quantityInput"
+                                                                data-price="{{ $item['gia'] }}"
+                                                                value="{{ $item['so_luong'] }}"name="cart[{{ $key }}][so_luong]">
                                                         </div>
                                                     </td>
                                                     <td class="pro-subtotal">
@@ -88,11 +92,11 @@
 
                                         </tbody>
                                         @if (session('success'))
-    <div class="alert alert-success">{{session('success')}}</div>
-@endif
-@if (session('quantity'))
-    <div class="alert alert-danger">{{session('quantity')}}</div>
-@endif
+                                            <div class="alert alert-success">{{ session('success') }}</div>
+                                        @endif
+                                        @if (session('quantity'))
+                                            <div class="alert alert-danger">{{ session('quantity') }}</div>
+                                        @endif
                                     </table>
                                 </div>
                                 <!-- Cart Update Option -->
@@ -128,7 +132,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <a href="checkout.html" class="btn btn-sqr d-block">Proceed Checkout</a>
+                                <a href="{{route('donhangs.create')}}" class="btn btn-sqr d-block">Proceed Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +161,7 @@
                 subTotal += price * quantity;
             })
             // lay so tien van chuyen
-            var shipping = parseFloat($('.shipping').text().replace(/\./g,'').replace(' đ', ''))
+            var shipping = parseFloat($('.shipping').text().replace(/\./g, '').replace(' đ', ''))
             var total = subTotal + shipping;
             // cap nhat gia tri
             $('.sub-total').text(subTotal.toLocaleString('vi-VN') + ' đ');

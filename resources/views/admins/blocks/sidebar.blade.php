@@ -41,13 +41,7 @@
 
                     </a>
                 </li>
-                <li>
-                    <a class='tp-link' href='{{route('admins.lienhe.index')}}'>
-                        <i data-feather="inbox"></i>
-                        <span> Liên hệ </span>
-
-                    </a>
-                </li>
+           
 
                 <li class="menu-title">Kinh Doanh</li>
 
@@ -60,18 +54,20 @@
                 </li>
                 <li>
                     <a class='tp-link' href='{{route('admins.sanphams.index')}}'>
-                        <i data-feather="users"></i>
-                        <span> Sản phẩm </span>
+                        <i data-feather="shopping-bag"></i>
+                        <span>Sản phẩm </span>
 
                     </a>
                 </li>
                 <li>
-                    <a class='tp-link' href='{{route('admins.donhang')}}'>
-                        <i data-feather="list"></i>
+                    <a class='tp-link' href='{{route('admins.donhangs.index')}}'>
+                        <i data-feather="shopping-bag"></i>
                         <span> Đơn hàng </span>
-
+                        
                     </a>
                 </li>
+              
+                
                 <li>
                     <a class='tp-link' href='{{route('admins.baiviet.index')}}'>
                         <i data-feather="list"></i>

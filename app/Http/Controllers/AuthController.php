@@ -20,6 +20,7 @@ class AuthController extends Controller
         $user = $request->validate([
             'email' => 'required|string|max:255',
             'password' => 'required|string',
+
         ]); // check password database
         // dd($user);
         if (Auth::attempt($user)) { // kiem tra neu dung thi ban ve home
@@ -44,7 +45,7 @@ class AuthController extends Controller
         ]);
         $user = User::query()->create($data);
         Auth::login($user);
-        return redirect()->intended('home');
+        return redirect()->intended('client');
     }
     public function logout()
     {
