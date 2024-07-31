@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Banner;
+
 use App\Models\LienHe;
 use App\Models\DanhMuc;
-use App\Models\lien_he;
 use App\Models\SanPham;
 use App\Mail\MailConfirm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+
 use Illuminate\Support\Facades\Mail;
 
 class ClientController extends Controller
@@ -22,9 +25,10 @@ class ClientController extends Controller
                 return $query->where("ten_san_pham", "like", "%{$search}%");
             })
             ->get();
+            $listSlider = Banner::where('status', 1)->get();
+           
 
-
-        return view("clients.index", compact('listSanPham',));
+        return view("clients.index", compact('listSanPham','listSlider'));
     }
 
     public function show(String $id)

@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
 use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\DonHangController;
-use App\Http\Controllers\Admin\LienHeController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
@@ -76,9 +75,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
             });
 
-
-
-       
+                  
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
@@ -113,3 +110,4 @@ Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilien
 
 
 Route::resource('client', ClientController::class);
+
