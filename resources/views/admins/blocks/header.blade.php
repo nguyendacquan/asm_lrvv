@@ -169,7 +169,7 @@
                           <!-- item-->
                           <form action="{{route('logout')}}" method="post" style="text-align: center">
                             @csrf
-                                <button type="submit" class="btn btn-danger">Logout</button>
+                                <button type="submit" class="btn"> <i data-feather="log-out"></i></button>
                           </form>
                       </div>
                   </li>

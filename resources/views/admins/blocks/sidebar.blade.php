@@ -25,7 +25,7 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">Menu</li>
+                <li class="menu-title"></li>
 
                 <li>
                     <a class='tp-link' href='{{route('admins.dashboard')}}'>
@@ -61,12 +61,12 @@
                 </li>
                 <li>
                     <a class='tp-link' href='{{route('admins.donhangs.index')}}'>
-                        <i data-feather="shopping-bag"></i>
+                        <i data-feather="truck"></i>
                         <span> Đơn hàng </span>
                         
                     </a>
                 </li>
-              
+                <li class="menu-title">Content</li>
                 
                 <li>
                     <a class='tp-link' href='{{route('admins.baiviet.index')}}'>
@@ -76,7 +76,7 @@
                 </li>
                 <li>
                     <a class='tp-link' href='{{route('admins.slider.index')}}'>
-                        <i data-feather="list"></i>
+                        <i data-feather="sliders"></i>
                         <span> Quản lí Slider </span>
                     </a>
                 </li>
