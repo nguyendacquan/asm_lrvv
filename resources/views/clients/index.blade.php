@@ -16,7 +16,7 @@
                                 <div class="hero-slider-content">
                                     <h2 class="slide-title" style="color: white">{{ $slider->title }} <span>{{ $slider->subtitle }}</span></h2>
                                     <h4 class="slide-desc">{{ $slider->description }}</h4>
-                                    <a href="{{ $slider->link }}" class="btn btn-hero">Read More</a>
+                                    {{-- <a href="{{ $slider->link }}" class="btn btn-hero">Read More</a> --}}
                                 </div>
                             </div>
                         </div>
