@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers\Client;
 
-<<<<<<< HEAD
 use App\Models\Banner;
-=======
+
 use App\Models\LienHe;
 use App\Models\DanhMuc;
-use App\Models\lien_he;
->>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 use App\Models\SanPham;
 use App\Mail\MailConfirm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
-=======
+
+
 use Illuminate\Support\Facades\Mail;
->>>>>>> df8a2f79dd83fe570aaa4887cef11e1d46d49be5
 
 class ClientController extends Controller
 {
