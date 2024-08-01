@@ -88,17 +88,15 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
             ->as('users.')
             ->group(function () {
                 Route::get('/', [UserController::class, 'index'])->name('index');
-                Route::get('/create', [UserController::class, 'create'])->name('create');
-                Route::post('/store', [UserController::class, 'store'])->name('store');
-                Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
-                Route::get('{id}/edit', [UserController::class, 'edit'])->name('edit');
-                Route::put('{id}/update', [UserController::class, 'update'])->name('update');
-                Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
+                Route::delete('users/{id}/destroy', [UserController::class, 'softDelete'])->name('softDelete');
+                Route::post('users/{user}/update', [UserController::class, 'updateStatus'])->name('updateStatus');
             });
         Route::get('/donhang', [DonHangController::class, 'index'])->name('donhang');
         Route::get('/dashboard', [ThongKeController::class, 'index'])->name('dashboard');
         Route::get('/donhang/{id}', [DonHangController::class, 'show'])->name('chitietdonhang');
         Route::put('/donhang/{id}', [DonHangController::class, 'update'])->name('capnhatdonhang');
+        Route::delete('/donhang/{id}', [DonHangController::class, 'softDelete'])->name('donhang.softDelete');
+        Route::patch('/donhang/{id}/restore', [DonHangController::class, 'restore'])->name('donhang.restore');
     });
 
 Route::get('details{id}', [ClientController::class, 'details'])->name('details');
@@ -112,6 +110,5 @@ Route::get('/profile', [ClientUserController::class, 'edit'])->name('profile.edi
 Route::post('/profile', [ClientUserController::class, 'update'])->name('profile.update');
 Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
 Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
-
-
+Route::get('/donhang/trashed', [DonHangController::class, 'trashed'])->name('donhang.trashed');
 Route::resource('client', ClientController::class);

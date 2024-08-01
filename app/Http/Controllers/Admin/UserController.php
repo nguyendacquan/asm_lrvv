@@ -15,7 +15,20 @@ class UserController extends Controller
         $listUser = User::all();
         return view("admins.users.index", compact("listUser"));
     }
-
+    public function softDelete(Request $request, $id)
+    {
+        if ($request->isMethod('DELETE')) {
+            $user = User::findOrFail($id);
+            $user->delete(); // Xóa mềm user
+            return redirect()->route('admins.users.index')->with('success', 'Xóa khách hàng thành công.');
+        }
+    }
+    public function updateStatus(Request $request, User $user)
+    {
+        $user->trang_thai = $user->trang_thai === 'Hoạt động' ? 'Không hoạt động' : 'Hoạt động';
+        $user->save();
+        return redirect()->route('admins.users.index')->with('success', 'Cập nhật trạng thái thành công.');
+    }
     public function logout(Request $request)
     {
         Auth::logout();

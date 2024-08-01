@@ -5,14 +5,8 @@
         <div class="container-xxl">
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Quản lý đơn hàng</h4>
-                    <a href="{{ route('donhang.trashed') }}" class="btn btn-success"><i
-                        data-feather="trash"></i> Đơn hàng đã xóa</a>
+                    <h4 class="fs-18 fw-semibold m-0">Đơn hàng đã bị xóa mềm</h4>
                 </div>
-                <form action="{{ route('admins.donhang') }}" method="GET" class="form-inline d-flex align-items-center">
-                    <input type="text" name="search" class="form-control mr-2" placeholder="Tìm kiếm đơn hàng..." value="{{ request()->query('search') }}">
-                    <button type="submit" class="btn btn-sm"><i data-feather="search"></i></button>
-                </form>
             </div>
             <div class="row">
                 <div class="col-xl-12">
@@ -27,7 +21,6 @@
                                             <th scope="col">Ngày Đặt Hàng</th>
                                             <th scope="col">Trạng Thái</th>
                                             <th scope="col">Tổng Tiền</th>
-                                            <th scope="col">Chi Tiết</th>
                                             <th scope="col">Hành Động</th>
                                         </tr>
                                     </thead>
@@ -39,12 +32,11 @@
                                                 <td>{{ $donHang->ngay_dat_hang }}</td>
                                                 <td>{{ $donHang->trang_thai }}</td>
                                                 <td>{{ number_format($donHang->tong_tien, 0, ',', '.') }} VND</td>
-                                                <td><a href="{{ route('admins.chitietdonhang', $donHang->id) }}"> <i data-feather="eye"></i>Xem Chi Tiết</a></td>
                                                 <td>
-                                                    <form action="{{ route('admins.donhang.softDelete', $donHang->id) }}" method="POST" style="display:inline-block;">
+                                                    <form action="{{ route('admins.donhang.restore', $donHang->id) }}" method="POST" style="display:inline-block;">
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Xóa Mềm</button>
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-success btn-sm">Khôi Phục</button>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -37,4 +37,23 @@ class DonHangController extends Controller
         $donHang->update($request->only('trang_thai'));
         return redirect()->route('admins.chitietdonhang', $id)->with('success', 'Trạng thái đơn hàng đã được cập nhật.');
     }
+    public function softDelete($id)
+    {
+        $donHang = DonHang::findOrFail($id);
+        $donHang->delete();
+        return redirect()->route('admins.donhang')->with('success', 'Đơn hàng đã được xóa mềm');
+    }
+
+    public function restore($id)
+    {
+        $donHang = DonHang::withTrashed()->findOrFail($id);
+        $donHang->restore();
+        return redirect()->route('admins.donhang')->with('success', 'Đơn hàng đã được khôi phục');
+    }
+
+    public function trashed()
+    {
+        $donHangs = DonHang::onlyTrashed()->with('user')->paginate(10);
+        return view('admins.donhang.donhangdaxoa', compact('donHangs'));
+    }
 }
