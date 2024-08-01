@@ -26,8 +26,6 @@ class ClientController extends Controller
             })
             ->get();
             $listSlider = Banner::where('status', 1)->get();
-           
-
         return view("clients.index", compact('listSanPham','listSlider'));
     }
 
@@ -41,13 +39,27 @@ class ClientController extends Controller
     public function shop(Request $request)
     {
         $search = $request->input("search");
+        $categoryId = $request->input('danh_muc_id');
+        
+       
+        $listDanhMuc = DanhMuc::orderByDesc('trang_thai')->get();
+
+        
         $listSanPham = SanPham::query()
             ->when($search, function ($query, $search) {
                 return $query->where("ten_san_pham", "like", "%{$search}%");
             })
-            ->get();
-        return view('clients.sanpham.shop', compact('listSanPham'));
+            ->when($categoryId, function ($query, $categoryId) {
+                return $query->where('danh_muc_id', $categoryId);
+            })
+            ->paginate(16);
+
+            $totalProducts = $listSanPham->total();
+
+
+        return view('clients.sanpham.shop', compact('listSanPham', 'listDanhMuc', 'totalProducts'));
     }
+
     public function myaccount(Request $request)
     {
 
