@@ -249,6 +249,8 @@
                                             <div class="payment-method-details" data-method="cash">
                                                 <p>Pay with cash upon delivery.</p>
                                             </div>
+                                           
+                                            
                                         </div>
 
                                         <div class="summary-footer-area">
@@ -258,6 +260,12 @@
                                 </div>
                             </div>
                         </div>
+                </form>
+
+                <form action="{{ route('qrpayment.generate') }}" method="POST">
+                    @csrf
+                    <input type="number" name="amount" placeholder="Enter Amount" required>
+                    <button type="submit" class="btn btn-sqr">Generate QR Code</button>
                 </form>
             </div>
         </div>

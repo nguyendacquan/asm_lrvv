@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\Banner;
+use App\Models\User;
 
+use App\Models\Banner;
 use App\Models\LienHe;
 use App\Models\DanhMuc;
 use App\Models\SanPham;
 use App\Mail\MailConfirm;
 use Illuminate\Http\Request;
+
+
 use App\Http\Controllers\Controller;
-
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ClientController extends Controller
@@ -25,8 +27,8 @@ class ClientController extends Controller
                 return $query->where("ten_san_pham", "like", "%{$search}%");
             })
             ->get();
-            $listSlider = Banner::where('status', 1)->get();
-        return view("clients.index", compact('listSanPham','listSlider'));
+        $listSlider = Banner::where('status', 1)->get();
+        return view("clients.index", compact('listSanPham', 'listSlider'));
     }
 
     public function show(String $id)
@@ -40,11 +42,11 @@ class ClientController extends Controller
     {
         $search = $request->input("search");
         $categoryId = $request->input('danh_muc_id');
-        
-       
+
+
         $listDanhMuc = DanhMuc::orderByDesc('trang_thai')->get();
 
-        
+
         $listSanPham = SanPham::query()
             ->when($search, function ($query, $search) {
                 return $query->where("ten_san_pham", "like", "%{$search}%");
@@ -54,34 +56,40 @@ class ClientController extends Controller
             })
             ->paginate(16);
 
-            $totalProducts = $listSanPham->total();
+        $totalProducts = $listSanPham->total();
 
 
         return view('clients.sanpham.shop', compact('listSanPham', 'listDanhMuc', 'totalProducts'));
     }
 
-    public function myaccount(Request $request)
+    public function myaccount()
+    {
+        $user = Auth::user();
+        return view('clients.myaccount.index', compact('user'));
+    }
+    public function myEdit(String $id)
+    {
+        $user = Auth::user();
+        return view('clients.myaccount.edit', compact('user'));
+    }
+    public function myUpdate(Request $request, String $id)
     {
 
-        return view('clients.myaccount.myaccount');
+        if ($request->isMethod('PUT')) {
+            $params = $request->except('_token', '_method');
+            $user = User::find($id);
+            $user->update($params);
+            return redirect()->route('myaccount')->with('success', 'Cập nhật thông tin thành công');
+        }
     }
+
+
     public function lienhe(Request $request)
     {
 
         return view('clients.contact.lienhe');
     }
-    // public function guilienhe(Request $request)
-    // {
 
-
-    //     if ($request->isMethod('POST')) {
-    //         $params = $request->except('_token');
-    //         $lien_He =lien_he::create($params);
-
-    //         return redirect()->route('lienhe')->with('success', 'Bạn đã gửi thành công !');
-    //     }
-    //     dd($request->all());
-    // }
 
     public function guilienhe(Request $request)
     {
@@ -92,7 +100,7 @@ class ClientController extends Controller
             'chu_de' => 'required|string|max:255',
             'so_dien_thoai' => 'required|string|max:20',
             'message' => 'required|string',
-            'images' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', 
+            'images' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
 
         ]);
         $images = null;
@@ -101,10 +109,9 @@ class ClientController extends Controller
             $images = $request->file('images')->store('uploads/images', 'public');
         }
         // Send email
-        Mail::to('quanndph41110@fpt.edu.vn')->send(new MailConfirm($validatedData,$images));
-    
+        Mail::to('quanndph41110@fpt.edu.vn')->send(new MailConfirm($validatedData, $images));
+
         // Redirect with success message
         return redirect()->route('lienhe')->with('success', 'Bạn đã gửi thành công !');
     }
-    
 }

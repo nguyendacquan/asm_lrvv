@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QRPaymentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
@@ -80,13 +82,13 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
-                Route::get('/', [UserController::class, 'index'])->name('index');
-                Route::get('/create', [UserController::class, 'create'])->name('create');
-                Route::post('/store', [UserController::class, 'store'])->name('store');
-                Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
-                Route::get('{id}/edit', [UserController::class, 'edit'])->name('edit');
-                Route::put('{id}/update', [UserController::class, 'update'])->name('update');
-                Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
+                Route::get('/', [AdminUserController::class, 'index'])->name('index');
+                Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+                Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [AdminUserController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [AdminUserController::class, 'edit'])->name('edit');
+                Route::put('{id}/update', [AdminUserController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
             });
         Route::prefix('donhangs')
             ->as('donhangs.')
@@ -115,8 +117,9 @@ Route::post('/add-to-cart', [CartController::class, 'addCart'])->name('cart.add'
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
-Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
 Route::get('/myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
+Route::get('/myEdit{id}', [ClientController::class, 'myEdit'])->name('myEdit');
+Route::put('/myUpdate{id}', [ClientController::class, 'myUpdate'])->name('myUpdate');
 Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
 Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
 

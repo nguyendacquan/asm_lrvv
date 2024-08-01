@@ -34,9 +34,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="twitter-feed-content text-center">
+                    {{-- <div class="twitter-feed-content text-center">
                         <p>Check out "Corano - Multipurpose eCommerce Bootstrap 5 template" on #Envato by @<a href="#">Corano</a> #Themeforest <a href="http://1.envato.market/9LbxW">http://1.envato.market/9LbxW</a></p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

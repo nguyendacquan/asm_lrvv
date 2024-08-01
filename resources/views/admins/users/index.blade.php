@@ -29,6 +29,7 @@
                                             <th scope="">Số điện thoại</th>
                                             <th scope="">Địa chỉ</th>
                                             <th scope="">Chức vụ</th>
+                                            <th scope="">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,6 +42,21 @@
                                                     <td>{{ $item->phone }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>{{ $item->role }}</td>
+                                                    <td class="d-flex">
+                                                        <a href="{{ route('admins.users.edit', $item->id) }}"><i
+                                                                class="mdi mdi-pencil text-muted fs-18 rounded-2 border p-1 me-1"></i>
+                                                        </a>
+                                                        <form action="{{ route('admins.users.destroy', $item->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="border-0 bg-white">
+                                                                <i
+                                                                    class="mdi mdi-delete text-muted fs-18 rounded-2 border p-1">
+                                                                </i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
