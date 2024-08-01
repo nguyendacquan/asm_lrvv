@@ -49,7 +49,7 @@
                                                 <th>Trạng thái</th>
                                                 <th>Tổng tiền</th>
                                                 <th>Hành động</th>
-                                                <th></th>
+                                            
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -60,25 +60,21 @@
                                                 <td>{{$trangThaiDonHang[$item->trang_thai_don_hang]}}</td>
                                                 <td>{{number_format($item->tong_tien,0,'','.')}} đ</td>
                                                
-                                                <td>
+                                                <td class="d-flex justify-content-center">
+
+                                                    <a href="{{route('donhangs.show',$item->id)}}" class="btn btn-sqr me-3" >View</a>
                                                     <form action="{{route('donhangs.update',$item->id)}}" method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                             @if ($item->trang_thai_don_hang === $type_cho_xac_nhan)
                                                                 <input type="hidden" name="huy_don_hang" value="1">
-                                                                <button  style="margin-top:20px " type="submit" class="btn btn-sqr bg-danger" onclick="return confirm('Bạn có muốn hủy đơn hàng không ?')">Hủy</button>
+                                                                <button  style="margin-top:20px " type="submit" class="btn btn-sqr bg-darker" onclick="return confirm('Bạn có muốn hủy đơn hàng không ?')">Hủy</button>
                                                             @elseif($item->trang_thai_don_hang === $type_dang_van_chuyen)
                                                             <input type="hidden" name="da_giao_hang bg-success" value="1">
                                                             <button type="submit" class="btn btn-sqr " onclick="return confirm('Bạn có muốn hủy đơn hàng không ?')">Đã nhận hàng</button>
                                                             @endif
-                
-                
                                                         </form>
                                                 </td>
-                                                <td>
-                                                    <a href="{{route('donhangs.show',$item->id)}}" class="btn btn-sqr">View</a>
-                                                </td>
-                
                                               </tr>
                                           @endforeach
                                             

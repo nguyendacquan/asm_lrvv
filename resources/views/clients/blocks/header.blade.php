@@ -34,7 +34,7 @@
                                         <li>
                                             <a href="{{ route('shop') }}">shop</a>
                                         </li>
-                                        <li><a href="blog-left-sidebar.html">Blog</a>
+                                        <li><a href="{{ route('blog') }}">Blog</a>
                                         </li>
                                         <li><a href="{{ route('lienhe') }}">Contact us</a></li>
                                     </ul>
@@ -79,7 +79,7 @@
                                                     </li>
                                                     <li><a href="{{ route('donhangs.index') }}">Order</a></li>
                                                     <li><a href="{{ route('myaccount') }}">Myaccount</a></li>
-                                                    <li><a href="{{ route('logout') }}"
+                                                    <li><a href="{{ route('logoutt') }}"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
                                                 @else
@@ -87,11 +87,11 @@
                                                     <li><a href="#">{{ Auth::user()->name }}</a></li>
                                                     <li><a href="{{ route('donhangs.index') }}">Order</a></li>
                                                     <li><a href="{{ route('myaccount') }}">Myaccount</a></li>
-                                                    <li><a href="{{ route('logout') }}"
+                                                    <li><a href="{{ route('logoutt') }}"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
                                                 @endif
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                <form id="logout-form" action="{{ route('logoutt') }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                 </form>
@@ -99,12 +99,12 @@
                                         </ul>
                                     </li>
 
-                                    <li>
+                                    {{-- <li>
                                         <a href="wishlist.html">
                                             <i class="pe-7s-like "></i>
                                             <div class="notification">0</div>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ route('cart.list') }}" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>

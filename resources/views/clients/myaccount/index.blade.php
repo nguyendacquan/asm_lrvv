@@ -38,12 +38,12 @@
                                     class="fa fa-edit"></i>
                                 Edit Address</a>
                         </div>
-                        <div class="myaccount-content col-lg-6">
+                        {{-- <div class="myaccount-content col-lg-6">
                             <h5>Password Edit</h5>
                             <a href="{{ route('myEdit', ['id' => $user->id]) }}" class="btn btn-sqr"><i
                                     class="fa fa-edit"></i>
                                 Edit Address</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

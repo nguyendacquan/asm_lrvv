@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         //
@@ -28,9 +26,7 @@ class OrderController extends Controller
         return view("clients.donhangs.index",compact('donHang','trangThaiDonHang','type_cho_xac_nhan','type_dang_van_chuyen'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
@@ -48,9 +44,6 @@ class OrderController extends Controller
         return redirect()->route('cart.list');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(OrderRequest $request)
     {
         //
@@ -78,6 +71,8 @@ class OrderController extends Controller
                         'so_luong' => $item['so_luong'],
                         'thanh_tien' => $thanhTien,
                     ]);
+
+
                     $sanPham = SanPham::find($key);
                     if ($sanPham) {
                         $sanPham->so_luong -= $item['so_luong'];
@@ -88,23 +83,19 @@ class OrderController extends Controller
                     }
                 }
 
-
                 DB::commit();
                 Mail::to($donHang->email_nguoi_nhan)->queue(new OrderConfirm($donHang));
                 // khi thêm thành công sẽ thực hiển các công việc bên dưới
                 // trừ đi số lượng của sản phẩm
                 session()->put('cart', []);
-                return redirect()->route('donhangs.index')->with('success', 'Dơn hàng đã được tạo thành công');
+                return redirect()->route('donhangs.thank')->with('success', 'Dơn hàng đã được tạo thành công');
             } catch (\Exception $e) {
-                DB::rollBack(); // tra lai du lieu
+                DB::rollBack();
                 return redirect()->route('cart.list')->with('error', 'Có lỗi khi tạo đơn hàng vui lòng xin gửi lại sau');
             }
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
@@ -114,17 +105,11 @@ class OrderController extends Controller
         return view('clients.donhangs.show', compact('donHang','trangThaiDonHang','trangThaiThanhToan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
@@ -142,14 +127,15 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        
     }
 
+
+    public function thanks(){
+        return view('clients.donhangs.thank');
+    }
 
     function generateOrderCode()
     {

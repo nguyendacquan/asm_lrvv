@@ -23,17 +23,9 @@
 
               <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center">
 
-                  <li class="d-none d-sm-flex">
-                      <button type="button" class="btn nav-link" data-toggle="fullscreen">
-                          <i data-feather="maximize" class="align-middle fullscreen noti-icon"></i>
-                      </button>
-                  </li>
+             
                   <li class="dropdown notification-list topbar-dropdown">
-                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                          aria-haspopup="false" aria-expanded="false">
-                          <i data-feather="bell" class="noti-icon"></i>
-                          <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
-                      </a>
+               
                       <div class="dropdown-menu dropdown-menu-end dropdown-lg">
                           <!-- item-->
                           <div class="dropdown-item noti-title">
@@ -167,7 +159,7 @@
                           
                           <div class="dropdown-divider"></div>
                           <!-- item-->
-                          <form action="{{route('logout')}}" method="post" style="text-align: center">
+                          <form action="{{route('logoutt')}}" method="post" style="text-align: center">
                             @csrf
                                 <button type="submit" class="btn"> <i data-feather="log-out"></i></button>
                           </form>

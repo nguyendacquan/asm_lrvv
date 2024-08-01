@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QRPaymentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Client\OrderController;
@@ -13,19 +14,21 @@ use App\Http\Controllers\Admin\DanhMucController;
 use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
-
+use App\Http\Controllers\Client\BogController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::get('login', [AuthController::class, 'showFormlogin']);
-Route::post('login', [AuthController::class, 'login'])->name('login');
-Route::get('register', [AuthController::class, 'showFormRegister']);
-Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('login', [AuthController::class, 'showFormlogin']);
+// Route::post('login', [AuthController::class, 'login'])->name('login');
+// Route::get('register', [AuthController::class, 'showFormRegister']);
+// Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::post('logoutt', [AuthController::class, 'logoutt'])->name('logoutt');
+
 
 
 Route::middleware('auth')->prefix('donhangs')
@@ -36,6 +39,7 @@ Route::middleware('auth')->prefix('donhangs')
     Route::post('/store', [OrderController::class, 'store'])->name('store');
     Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
     Route::put('{id}/update', [OrderController::class, 'update'])->name('update');
+    Route::get('/thank', [OrderController::class, 'thanks'])->name('thank');
 });
 
 
@@ -122,7 +126,12 @@ Route::get('/myEdit{id}', [ClientController::class, 'myEdit'])->name('myEdit');
 Route::put('/myUpdate{id}', [ClientController::class, 'myUpdate'])->name('myUpdate');
 Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
 Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
+Route::get('/blog', [BogController::class, 'blog'])->name('blog');
+
 
 
 Route::resource('client', ClientController::class);
 
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
