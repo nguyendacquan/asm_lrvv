@@ -21,9 +21,8 @@ class AuthController extends Controller
             'email' => 'required|string|max:255',
             'password' => 'required|string',
 
-        ]); // check password database
-        // dd($user);
-        if (Auth::attempt($user)) { // kiem tra neu dung thi ban ve home
+        ]);
+        if (Auth::attempt($user)) { 
             return redirect()->intended('admins/dashboard');
         }
 
@@ -47,9 +46,14 @@ class AuthController extends Controller
         Auth::login($user);
         return redirect()->intended('client');
     }
-    public function logout()
+    public function logoutt()
     {
         Auth::logout();
         return redirect('/client');
+    }
+    public function passwordrequest()
+    {
+       
+        return view('auth.passwords.reset');
     }
 }

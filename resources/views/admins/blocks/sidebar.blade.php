@@ -18,7 +18,7 @@
                         <img src="{{ asset('assets/admin/images/logo-sm.png') }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/admin/images/Wardiere-removebg-preview.png') }}" alt="" width="80px">
+                        {{-- <img src="{{ asset('assets/admin/images/Wardiere-removebg-preview.png') }}" alt="" width="80px"> --}}
                     </span>
                 </a>
             </div>

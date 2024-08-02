@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+<<<<<<< HEAD
+=======
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+>>>>>>> 285adfb10da2525062d75de76ac4f0f9ee8fc85d
 
 class DonHang extends Model
 {
@@ -61,4 +64,5 @@ class DonHang extends Model
     public function chiTietDonHang(){
         return $this->hasMany(ChiTietDonHang::class);
     }
+    use SoftDeletes;
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SanPham extends Model
 {
@@ -44,8 +45,12 @@ class SanPham extends Model
     {
         return $this->hasMany(HinhAnhSanPham::class);
     }
+<<<<<<< HEAD
     public function binhLuans()
     {
         return $this->hasMany(BinhLuan::class, 'san_pham_id');
     }
+=======
+    use SoftDeletes;
+>>>>>>> 285adfb10da2525062d75de76ac4f0f9ee8fc85d
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,6 +16,8 @@ class User extends Authenticatable
 
     const  ROLE_ADMIN = 'Admin';
     const  ROLE_USER = 'User';
+
+  
 
     /**
      * The attributes that are mass assignable.
@@ -60,8 +63,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(DonHang::class);
     }
+<<<<<<< HEAD
     public function binhLuans()
     {
         return $this->hasMany(BinhLuan::class, 'nguoi_dung_id');
     }
+=======
+    use SoftDeletes;
+>>>>>>> 285adfb10da2525062d75de76ac4f0f9ee8fc85d
 }

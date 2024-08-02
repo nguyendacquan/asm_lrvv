@@ -1,8 +1,5 @@
 @extends('layouts.client')
 
-
-
-
 @section('content')
     <main>
         <!-- breadcrumb area start -->
@@ -35,7 +32,7 @@
         @endif
         <!-- my account wrapper start -->
         <div class="my-account-wrapper section-padding">
-            <div class="container">
+            <div class="container" >
                 <div class="section-bg-color">
                     <div class="row">
                         <div class="col-lg-12">
