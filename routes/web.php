@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\DonHangController;
 use App\Http\Controllers\Admin\SanPhamController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Admin\BaiVietController as AdminBaiVietController;
-
+use App\Http\Controllers\Admin\BinhLuanController as AdminBinhLuanController;
+use App\Http\Controllers\Client\BinhLuanController;
+use App\Http\Controllers\Client\UserController as ClientUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,20 +29,20 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware('auth')->prefix('donhangs')
-->as('donhangs.')
-->group(function () {
-    Route::get('/', [OrderController::class, 'index'])->name('index');
-    Route::get('/create', [OrderController::class, 'create'])->name('create');
-    Route::post('/store', [OrderController::class, 'store'])->name('store');
-    Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
-    Route::put('{id}/update', [OrderController::class, 'update'])->name('update');
-});
+    ->as('donhangs.')
+    ->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/create', [OrderController::class, 'create'])->name('create');
+        Route::post('/store', [OrderController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
+        Route::put('{id}/update', [OrderController::class, 'update'])->name('update');
+    });
 
 
 Route::middleware(['auth', 'auth.admin'])->prefix('admins')
     ->as('admins.')
     ->group(function () {
-        Route::get('/dashboard', [AdminController::class,'index'])->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::prefix('danhmucs')
             ->as('danhmucs.')
             ->group(function () {
@@ -62,6 +64,8 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::get('{id}/edit', [SanPhamController::class, 'edit'])->name('edit');
                 Route::put('{id}/update', [SanPhamController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [SanPhamController::class, 'destroy'])->name('destroy');
+                Route::get('sanphams/{san_pham_id}/binhluans', [AdminBinhLuanController::class, 'index'])->name('binhluans');
+                Route::delete('binhluans/{id}', [AdminBinhLuanController::class, 'destroy'])->name('binhluansDestroy');
             });
 
         Route::prefix('baiviet')
@@ -76,17 +80,16 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::delete('{id}/destroy', [AdminBaiVietController::class, 'destroy'])->name('destroy');
             });
 
-                  
+
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
                 Route::get('/', [UserController::class, 'index'])->name('index');
-                Route::get('/create', [UserController::class, 'create'])->name('create');
-                Route::post('/store', [UserController::class, 'store'])->name('store');
-                Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
-                Route::get('{id}/edit', [UserController::class, 'edit'])->name('edit');
-                Route::put('{id}/update', [UserController::class, 'update'])->name('update');
-                Route::delete('{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
+                Route::delete('users/{id}/destroy', [UserController::class, 'softDelete'])->name('softDelete');
+                Route::get('users/deleted', [UserController::class, 'deleted'])->name('deleted');
+                Route::post('users/{id}/restore', [UserController::class, 'restore'])->name('restore');
+                Route::delete('users/{id}/force-delete', [UserController::class, 'forceDelete'])->name('force-delete');
+                Route::post('users/{user}/update', [UserController::class, 'updateStatus'])->name('updateStatus');
             });
         Route::prefix('donhangs')
             ->as('donhangs.')
@@ -95,8 +98,11 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::get('/show/{id}', [DonHangController::class, 'show'])->name('show');
                 Route::put('{id}/update', [DonHangController::class, 'update'])->name('update');
                 Route::delete('{id}/destroy', [DonHangController::class, 'destroy'])->name('destroy');
+                Route::get('donhangs/deleted', [DonHangController::class, 'deleted'])->name('deleted');
+                Route::post('donhangs/{id}/restore', [DonHangController::class, 'restore'])->name('restore');
+                Route::delete('donhangs/{id}/force-delete', [DonHangController::class, 'forceDelete'])->name('force-delete');
             });
-            Route::prefix('slider')
+        Route::prefix('slider')
             ->as('slider.')
             ->group(function () {
                 Route::get('/', [BannerController::class, 'index'])->name('index');
@@ -116,10 +122,11 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('cart.u
 Route::get('/clearCart', [CartController::class, 'clearCart'])->name('clearCart');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
-Route::get('/myaccount', [ClientController::class, 'myaccount'])->name('myaccount');
+Route::get('/profile', [ClientUserController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ClientUserController::class, 'update'])->name('profile.update');
 Route::get('/lien-he', [ClientController::class, 'lienhe'])->name('lienhe');
 Route::post('/guilienhe', [ClientController::class, 'guilienhe'])->name('guilienhe');
+Route::post('/binhluan', [BinhLuanController::class, 'store'])->name('binhluan');
 
 
 Route::resource('client', ClientController::class);
-

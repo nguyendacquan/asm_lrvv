@@ -115,7 +115,7 @@
                                                     <li><a href="{{ route('donhangs.index') }}">Order</a></li>
                                                 @else
                                                     <!-- If the user is a regular user -->
-                                                    <li><a href="#">{{ Auth::user()->name }}</a></li>
+                                                    <li><a href="{{ route('profile.edit') }}">{{ Auth::user()->name }}</a></li>
                                                     <li><a href="{{ route('donhangs.index') }}">Order</a></li>
                                                     <li><a href="{{ route('logout') }}" 
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

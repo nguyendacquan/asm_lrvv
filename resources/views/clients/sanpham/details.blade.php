@@ -157,77 +157,61 @@
                                             </table>
                                         </div>
                                         <div class="tab-pane fade" id="tab_three">
-                                            <form action="#" class="review-form">
-                                                <h5>1 review for <span>Chaz Kangeroo</span></h5>
-                                                <div class="total-reviews">
-                                                    <div class="rev-avatar">
-                                                        <img src="{{ asset('assets/clients/img/about/avatar.jpg') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="review-box">
-                                                        <div class="ratings">
-                                                            <span class="good"><i class="fa fa-star"></i></span>
-                                                            <span class="good"><i class="fa fa-star"></i></span>
-                                                            <span class="good"><i class="fa fa-star"></i></span>
-                                                            <span class="good"><i class="fa fa-star"></i></span>
-                                                            <span><i class="fa fa-star"></i></span>
-                                                        </div>
-                                                        <div class="post-author">
-                                                            <p><span>admin -</span> 30 Mar, 2019</p>
-                                                        </div>
-                                                        <p>Aliquam fringilla euismod risus ac bibendum. Sed sit
-                                                            amet sem varius ante feugiat lacinia. Nunc ipsum nulla,
-                                                            vulputate ut venenatis vitae, malesuada ut mi. Quisque
-                                                            iaculis, dui congue placerat pretium, augue erat
-                                                            accumsan lacus</p>
+                                            <form action="{{ route('binhluan') }}" method="POST" class="review-form">
+                                                @csrf
+                                                <input type="hidden" name="san_pham_id" value="{{ $sanPham->id }}">
+                                                <h5>Đánh giá sản phẩm: <span>{{ $sanPham->ten }}</span></h5>
+                                                <div class="form-group row">
+                                                    <div class="col">
+                                                        <label class="col-form-label"><span class="text-danger">*</span> Bình luận của bạn</label>
+                                                        <textarea class="form-control" name="noi_dung" required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Your Name</label>
-                                                        <input type="text" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Your Email</label>
-                                                        <input type="email" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Your Review</label>
-                                                        <textarea class="form-control" required></textarea>
-                                                        <div class="help-block pt-10"><span
-                                                                class="text-danger">Note:</span>
-                                                            HTML is not translated!
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Rating</label>
-                                                        &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                                                        <input type="radio" value="1" name="rating">
+                                                        <label class="col-form-label"><span class="text-danger">*</span> Đánh giá</label>
+                                                        &nbsp;&nbsp;&nbsp; Xấu&nbsp;
+                                                        <input type="radio" value="1" name="danh_gia" required>
                                                         &nbsp;
-                                                        <input type="radio" value="2" name="rating">
+                                                        <input type="radio" value="2" name="danh_gia">
                                                         &nbsp;
-                                                        <input type="radio" value="3" name="rating">
+                                                        <input type="radio" value="3" name="danh_gia">
                                                         &nbsp;
-                                                        <input type="radio" value="4" name="rating">
+                                                        <input type="radio" value="4" name="danh_gia">
                                                         &nbsp;
-                                                        <input type="radio" value="5" name="rating" checked>
-                                                        &nbsp;Good
+                                                        <input type="radio" value="5" name="danh_gia" checked>
+                                                        &nbsp;Tốt
                                                     </div>
                                                 </div>
                                                 <div class="buttons">
-                                                    <button class="btn btn-sqr" type="submit">Continue</button>
+                                                    <button class="btn btn-sqr" type="submit">Gửi</button>
                                                 </div>
-                                            </form> <!-- end of review-form -->
+                                            </form>                                            
+                                    
+                                            <div class="comments">
+                                                <!-- Place to display comments -->
+                                                @foreach($sanPham->binhLuans as $binhLuan)
+                                                    <div class="comment">
+                                                        <div class="rev-avatar">
+                                                            <img src="{{ asset('storage/' . $binhLuan->nguoiDung->hinh_anh) }}" alt="" width=" 60px">
+                                                        </div>
+                                                        <div class="review-box">
+                                                            <div class="ratings">
+                                                                @for ($i = 0; $i < $binhLuan->danh_gia; $i++)
+                                                                    <span class="good"><i class="fa fa-star"></i></span>
+                                                                @endfor
+                                                                @for ($i = $binhLuan->danh_gia; $i < 5; $i++)
+                                                                    <span><i class="fa fa-star"></i></span>
+                                                                @endfor
+                                                            </div>
+                                                            <div class="post-author">
+                                                                <p><span>{{ $binhLuan->nguoiDung->name }} -</span> {{ $binhLuan->created_at->format('d M, Y') }}</p>
+                                                            </div>
+                                                            <p>{{ $binhLuan->noi_dung }}</p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,7 @@
                         <div class="card-header">
                             <h4 class="fs-18 fw-semibold m-0">Quản lý đơn hàng</h4>
                         </div>
+                        <a href="{{ route('admins.donhangs.deleted') }}" class="btn btn-warning">Xem đơn hàng đã xóa mềm</a>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -36,7 +37,6 @@
                                         <tr>
                                             <th>Mã đơn hàng</th>
                                             <th>Ngày đặt</th>
-
                                             <th>Tổng tiền</th>
                                             <th>Trang thái</th>
                                             <th>Hành động</th>
@@ -78,7 +78,7 @@
                                                     </a>
 
 
-                                                    @if ($item->trang_thai_don_hang === $type_huy_don_hang)
+                                                  
                                                         <form action="{{ route('admins.donhangs.destroy', $item->id) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Bạn có muốn xóa không')"
@@ -90,7 +90,7 @@
                                                                     class="mdi mdi-delete text-muted fs-18 rounded-2 border p-1"></i>
                                                             </button>
                                                         </form>
-                                                    @endif
+                                                    
                                                 </td>
 
                                             </tr>
