@@ -66,6 +66,13 @@
                         
                     </a>
                 </li>
+                <li>
+                    <a class='tp-link' href='{{route('admins.coupons.index')}}'>
+                        <i data-feather="truck"></i>
+                        <span> Mã giảm giá </span>
+                        
+                    </a>
+                </li>
                 <li class="menu-title">Content</li>
                 
                 <li>
