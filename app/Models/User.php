@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -17,7 +16,7 @@ class User extends Authenticatable
     const  ROLE_ADMIN = 'Admin';
     const  ROLE_USER = 'User';
 
-  
+
 
     /**
      * The attributes that are mass assignable.
@@ -57,18 +56,21 @@ class User extends Authenticatable
         'password' => 'hashed'
     ];
 
-    protected $dates = ['deleted_at']; 
+    protected $dates = ['deleted_at'];
 
     public function donHang()
     {
         return $this->hasMany(DonHang::class);
     }
-<<<<<<< HEAD
+
     public function binhLuans()
     {
         return $this->hasMany(BinhLuan::class, 'nguoi_dung_id');
     }
-=======
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'user_coupons')->withTimestamps();
+    }
     use SoftDeletes;
->>>>>>> 285adfb10da2525062d75de76ac4f0f9ee8fc85d
 }

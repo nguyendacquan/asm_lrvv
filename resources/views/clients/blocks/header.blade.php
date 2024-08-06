@@ -83,13 +83,9 @@
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                                     </li>
                                                 @else
-<<<<<<< HEAD
-                                                    <!-- If the user is a regular user -->
-                                                    <li><a href="{{ route('profile.edit') }}">{{ Auth::user()->name }}</a></li>
-=======
+
                                               
                                                     <li><a href="#">{{ Auth::user()->name }}</a></li>
->>>>>>> 285adfb10da2525062d75de76ac4f0f9ee8fc85d
                                                     <li><a href="{{ route('donhangs.index') }}">Order</a></li>
                                                     <li><a href="{{ route('myaccount') }}">Myaccount</a></li>
                                                     <li><a href="{{ route('logoutt') }}"
