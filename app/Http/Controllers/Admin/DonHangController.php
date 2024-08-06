@@ -89,11 +89,35 @@ class DonHangController extends Controller
         //
 
         $donHang = DonHang::query()->findOrFail($id);
+    
         if ($donHang && $donHang->trang_thai_don_hang == DonHang::HUY_DON_HANG) {
             $donHang->chiTietDonHang()->delete();
-            $donHang->delete();
+            $donHang->delete(); // Sử dụng phương thức delete() để xóa mềm
             return redirect()->back()->with('success', 'Bạn đã xóa thành công');
         }
         return redirect()->back()->with('error', 'Không thể xóa được đơn hàng');
+    }
+    public function deleted()
+    {
+        $deletedDonHangs = DonHang::onlyTrashed()->get();
+        $trangThaiDonHang = DonHang::TRANG_THAI_DON_HANG;
+
+        return view('admins.donhangs.donhangdaxoa', compact('deletedDonHangs', 'trangThaiDonHang'));
+    }
+
+    public function restore($id)
+    {
+        $donHang = DonHang::withTrashed()->findOrFail($id);
+        $donHang->restore();
+
+        return redirect()->route('admins.donhangs.deleted')->with('success', 'Khôi phục đơn hàng thành công');
+    }
+
+    public function forceDelete($id)
+    {
+        $donHang = DonHang::withTrashed()->findOrFail($id);
+        $donHang->forceDelete();
+
+        return redirect()->route('admins.donhangs.deleted')->with('success', 'Đơn hàng đã bị xóa vĩnh viễn');
     }
 }

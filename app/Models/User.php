@@ -4,16 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     const  ROLE_ADMIN = 'Admin';
     const  ROLE_USER = 'User';
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +29,10 @@ class User extends Authenticatable
         'password',
         'address',
         'phone',
+        'hinh_anh',
+        'gioi_tinh',
+        'trang_thai',
+        'ngay_sinh',
         'role',
     ];
 
@@ -49,7 +56,21 @@ class User extends Authenticatable
         'password' => 'hashed'
     ];
 
-    public function donHang(){
+    protected $dates = ['deleted_at'];
+
+    public function donHang()
+    {
         return $this->hasMany(DonHang::class);
     }
+
+    public function binhLuans()
+    {
+        return $this->hasMany(BinhLuan::class, 'nguoi_dung_id');
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'user_coupons')->withTimestamps();
+    }
+    use SoftDeletes;
 }

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class DonHang extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     const TRANG_THAI_DON_HANG = [
         'cho_xac_nhan' => 'Chờ xác nhận',
@@ -59,4 +63,5 @@ class DonHang extends Model
     public function chiTietDonHang(){
         return $this->hasMany(ChiTietDonHang::class);
     }
+    use SoftDeletes;
 }

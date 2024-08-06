@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ChiTietDonHang extends Model
 {
@@ -23,4 +24,5 @@ class ChiTietDonHang extends Model
     public function sanPham(){
         return $this->belongsTo(SanPham::class);
     }
+    use SoftDeletes;
 }
